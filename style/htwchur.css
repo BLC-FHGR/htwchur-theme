@@ -1,0 +1,114 @@
+/**
+ * HTW Chur CD
+ */
+/**
+ * Colors
+ */
+/**
+ * Basic Layout Parameter
+ */
+/**
+ * Gradients
+ */
+.navbar-inverse .navbar-inner {
+  background-color: #000000; }
+
+/**
+ * basic tags
+ */
+h1, h2, h3, a {
+  color: #003399; }
+
+/**
+ * Navbar hacks
+ */
+.navbar .brand {
+  font-family: Arial, "Roboto Light", sans-serif; }
+
+/**
+ * AAI Hacks
+ */
+#user_idp_iddwrap {
+  float: left;
+  vertical-align: middle; }
+
+#user_idp_iddtext {
+  box-sizing: border-box;
+  background-position: left center !important; }
+
+#user_idp_iddicon {
+  vertical-align: top !important; }
+
+#user_idp_iddwrap + input {
+  clear: both; }
+
+/**
+ * round user images
+ */
+.block_online_users .userpicture {
+  border-radius: 8px; }
+
+.page-header-image .userpicture {
+  border-radius: 50px; }
+
+.navbar .userpicture {
+  border-radius: 35px; }
+
+/**
+ * Bootstrap 3 components hacks
+ */
+/* Jumbotron: Nice and BIG information */
+.jumbotron {
+  border-radius: 8px;
+  padding: 30px 15px;
+  margin-bottom: 30px;
+  color: #000000;
+  background-color: #f2f2f2; }
+
+.jumbotron h1,
+.jumbotron .h1 {
+  color: #000000; }
+
+.jumbotron p {
+  margin-bottom: 15px;
+  font-size: 21px;
+  font-weight: 200; }
+
+.jumbotron > hr {
+  border-top-color: #cccccc; }
+
+/**
+ * block backgrounds
+ */
+.block,
+.coursebox {
+  box-shadow: none;
+  border-radius: 5px;
+  background-color: #f2f2f2; }
+
+#block-region-content .block {
+  background-color: #ffffff; }
+
+.block .header h1,
+.block .header h2 {
+  color: darkent(#cccccc, 30%); }
+
+#loginauthsection {
+  min-height: 50vh; }
+
+#loginauthsection .span6:last-child {
+  border-left: 2px solid #cccccc; }
+
+#page-footer {
+  border-top: none; }
+
+/**
+ * Remove the duplicate name. We already have the title banner
+ */
+#page-site-index #page-header,
+#page-login-index #page-header,
+#page-course-index-category .page-context-header,
+#page-site-index .page-context-header {
+  display: none; }
+
+/*# sourceMappingURL=htwchur.css.map */
