@@ -28,7 +28,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$THEME->name = 'htwchur'; // This MUST be exactly the name of the theme directory
+$THEME->name = 'htwchur-theme'; // This MUST be exactly the name of the theme directory
 
 /////////////////////////////////
 // The only thing you need to change in this file when copying it to
