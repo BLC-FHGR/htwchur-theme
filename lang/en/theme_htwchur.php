@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'theme_htwchurtheme', language 'en'
+ * Strings for component 'theme_htwchur', language 'en'
  *
  * @package   theme_htwchur
  * @copyright 2013 Moodle, moodle.org
@@ -63,7 +63,7 @@ $string['logininfo'] = 'Login Information';
 $string['logininfodesc'] = 'The login information is displayed as a generic welcome message on the login screen. You can format this message. Do not include any buttons or links to the authentication service here!';
 
 
-$string['pluginname'] = 'HTW Chur Theme';
+$string['pluginname'] = 'HTW Chur';
 
 $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';

@@ -32,7 +32,7 @@ defined('MOODLE_INTERNAL') || die;
 
 $plugin->version   = 2016080901;
 $plugin->requires  = 2015050500;
-$plugin->component = 'theme_htwchurtheme';
+$plugin->component = 'theme_htwchur';
 $plugin->dependencies = array(
     'theme_bootstrapbase'  => 2015050500,
 );
