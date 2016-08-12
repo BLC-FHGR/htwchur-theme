@@ -151,6 +151,98 @@ h1, h2, h3, a {
 .no-overflow {
    overflow: hidden;
 }
+/* colored inverse navbar */
+.navbar-inverse .navbar-inner {
+    background: #12296F;
+}
+.navbar-inverse .brand, .navbar-inverse .nav>li>a, .navbar-inverse .usertext{
+         color:#fff!important;
+    }
+
+
+/* NEW BUTTON STYLES */
+
+
+button, input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link{
+    display: inline-block;
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    color: #fff;
+    text-shadow: none;
+
+    background-color: #223E92;
+    background-image: none;
+    filter: none;
+    border-color:none;
+    border: 0px solid;
+    border-bottom-color: none;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow:0 1px 2px rgba(0,0,0,0.45);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.45);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.45);
+    -webkit-transition: all 120ms ease-in-out;
+    -moz-transition: all 120ms ease-in-out;
+    -ms-transition: all 120ms ease-in-out;
+    -o-transition: all 120ms ease-in-out;
+    transition: all 120ms ease-in-out;
+}
+button:hover, input.form-submit:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input.form-submit:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, .ical-link:hover{
+    display: inline-block;
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.75);
+
+    background-color: #12296F;
+    background-image: none;
+    filter: none;
+    border-color:none;
+    border: 0px solid;
+    border-bottom-color: none;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+    box-shadow:  0 1px 1px rgba(0,0,0,0.15);
+    
+}
+.ical-link:before  {
+    content: "\f019";
+    font-family: FontAwesome;
+    font-size: 14px;
+    margin-right: 10px;
+    
+}
+
+
+button:first-child, input.form-submit:first-child, input[type="button"]:first-child, input[type="submit"]:first-child, input[type="reset"]:first-child, ical-link:first-child{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Custom CSS Settings
 -------------------------*/
