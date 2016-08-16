@@ -14,8 +14,8 @@
   background: #00194d; }
 
 /**
- * basic tags
- */
+ ** basic tags
+ **/
 h1, h2, h3, a {
   color: #003399; }
 
@@ -112,7 +112,7 @@ h1, h2, h3, a {
 .coursebox {
   box-shadow: none;
   border: none;
-  border-radius: 5px;
+  border-radius: 2px;
   background-color: #f2f2f2; }
 
 #block-region-content .block {
@@ -159,14 +159,16 @@ h1, h2, h3, a {
          color:#fff!important;
     }
 
-
+/* ***************** */
 /* NEW BUTTON STYLES */
+.breadcrumb{
+    border-radius: 2px;
+}
 
-
-button, input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link{
+button, input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link, input.form-submit, input#id_submitbutton, input#id_submitbutton2, .path-admin .buttons input[type="submit"], td.submit input{
     display: inline-block;
     padding: 4px 12px;
-    margin-bottom: 0;
+    margin:10px 0;
     font-size: 14px;
     line-height: 20px;
     text-align: center;
@@ -193,10 +195,10 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
     -o-transition: all 120ms ease-in-out;
     transition: all 120ms ease-in-out;
 }
-button:hover, input.form-submit:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input.form-submit:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, .ical-link:hover{
+button:hover, input.form-submit:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input.form-submit:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, .ical-link:hover, input.form-submit:hover, input#id_submitbutton:hover, input#id_submitbutton2:hover, .path-admin .buttons input[type="submit"]:hover, td.submit input:hover{
     display: inline-block;
     padding: 4px 12px;
-    margin-bottom: 0;
+    margin-bottom: 10px 0;
     font-size: 14px;
     line-height: 20px;
     text-align: center;
@@ -204,7 +206,6 @@ button:hover, input.form-submit:hover, input[type="button"]:hover, input[type="s
     cursor: pointer;
     color: #fff;
     text-shadow: 0 1px 1px rgba(0,0,0,0.75);
-
     background-color: #12296F;
     background-image: none;
     filter: none;
@@ -224,26 +225,271 @@ button:hover, input.form-submit:hover, input[type="button"]:hover, input[type="s
     font-family: FontAwesome;
     font-size: 14px;
     margin-right: 10px;
-    
+}
+/* iCal Language specifications */
+.ical-link:lang(de):after { 
+ content: ' herunterladen'
+}
+.ical-link:lang(en):after { 
+content: ': Download calendar'
 }
 
-
+/*maybe needed: take care when testing!*/
 button:first-child, input.form-submit:first-child, input[type="button"]:first-child, input[type="submit"]:first-child, input[type="reset"]:first-child, ical-link:first-child{
-
 }
 
 
+/* Cleanup: header region with breadcrumb, buttongroup and welcome messages */
+
+.page-header-image img {
+    width: 54%;
+    height: auto;
+}
+
+.page-context-header {
+    background: #F5F5F5;
+    padding: 8px 0px 0px 0px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+
+header#page-header {
+    margin-bottom: 10px;
+    border-bottom: 1px solid#fafafa;
+}
+
+.dir-ltr .page-context-header .page-header-image {
+    padding-left: 16px;
+}
+
+.page-context-header .page-header-headings {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+.page-context-header .page-header-headings h1{
+    padding-left: 10px;
+    font-size: 1.8em;
+}
+.page-context-header .page-header-headings h1:before {content: 'Welcome ';}
+
+.page-context-header .page-header-headings h1:after {content: '!';}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{
+    margin-bottom: 10px;
+}
+.sectionname span {
+    font-size: .8em;
+    white-space: normal;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * M E D I A ** Q U E R I E S* * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+ /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ /* * * * * * * * * * *  smartphones, iPhone, portrait 480x320 phones * * * * * * * * * * */ 
+
+
+
+@media (min-width:320px) and (max-device-width:480px){
+    /* fix: overlapping frame size on mobile / horizontal scroll*/
+    #page-header .logo{
+        margin:0px;
+        margin-right: 0px;
+    }
+    .page-context-header .page-header-headings h1 {
+    font-size: 1.4em;
+    padding: 0 10px;
+    }
+    
+    input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link, input.form-submit:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input.form-submit:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, .ical-link:hover{
+        min-width: 100%;
+        max-width: 280px;
+        padding: 10px 10px;
+    }
+    .singlebutton div{
+        display: block;
+    }
+    .path-calendar .maincalendar .header .buttons{
+        float: none;
+    }
+    .block-region button,.block-region input.form-submit, .block-region input[type="button"],.block-region input[type="submit"], .block-region input[type="reset"]{
+         margin: 0!important;
+         display: block;
+         min-width: 100%;
+    }
+    .block_settings #adminsearchquery {
+        max-width: 100%;
+        min-width: 96%;
+    }
+
+    .breadcrumb-button .singlebutton{
+        float:none;
+    }
+    .breadcrumb-button{
+        float:none;
+    }
+    /* block tap fixes*/
+    .block_settings .block_tree .tree_item, .block_navigation .block_tree .tree_item{
+        margin:10px 0;
+    }
+
+    
+    /* fix: mobile: editor width */
+    .form-item, .mform .fitem, .form-item, .mform .fitem_ftext input[size]{
+        min-width: 280px;
+        max-width: 380px;
+        width: 90%;
+        position: inherit;
+    }
+    .editor_atto_content_wrap{
+        white-space: inherit;
+    }
+    .editor_atto_notification .atto_info, .editor_atto_notification .atto_warning{
+        border-radius: 4px;
+        background-color: #EDF1FC;
+    }
+    /* fix moodle dialogues to select course element type*/
+    .moodle-dialogue-base .moodle-dialogue{
+        max-width: 100%;
+        position: absolute;
+        height: 100vh;
+        top:0;
+        bottom:0!important;
+    }
+    .moodle-dialogue-base .moodle-dialogue-fullscreen .moodle-dialogue-content{
+     bottom:0px!important;   
+    }
+    /* fix fieldset */
+    
+    #page-enrol-users #filterform .fitem{
+        white-space: normal;
+
+    }
+    #page-enrol-users #filterform div, #page-enrol-users #filterform fieldset{
+        white-space: normal;
+    }
+    #page-enrol-users #filterform,  #page-enrol-users #filterform div, #page-enrol-users #filterform fieldset{
+        max-width: 97%;
+    }
+    #page-enrol-users .enrol_user_buttons, #page-enrol-users .enrol_user_buttons .enrolusersbutton{
+        float:none;
+    }
+
+    #page-enrol-users #filterform{
+        display: block;
+    }
+
+    #page-enrol-users #filterform select, #page-enrol-users #filterform .ftext input {
+        width: inherit;
+    }
+    /* block tap fixes: height!!*/
+    .block_settings .block_tree .tree_item, .block_navigation .block_tree .tree_item{
+        margin:10px 0;
+    }
+    #page-enrol-users #filterform, #page-enrol-users #filterform div, #page-enrol-users #filterform fieldset{
+        display: -webkit-box;
+    }
+    input.form-submit, input#id_submitbutton, input#id_submitbutton2, .path-admin .buttons input[type="submit"], td.submit input {
+        padding: 10px ;
+    }
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide.*/
+
+
+
+@media (min-width:481px)and (max-device-width:640px) {
+    /* fix: overlapping frame size on mobile / horizontal scroll*/
+    #page-header .logo{
+        margin:0px;
+    }
+    input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link, input.form-submit:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input.form-submit:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, .ical-link:hover{
+        min-width: 100%;
+        max-width: 600px;
+        padding: 10px 0;
+    }
+    .singlebutton div{
+        display: block;
+    }
+    .block-region button,.block-region input.form-submit, .block-region input[type="button"],.block-region input[type="submit"], .block-region input[type="reset"]{
+         margin: 0!important;
+         display: block;
+         min-width: 100%;
+    }
+    .block_settings #adminsearchquery {
+        max-width: 100%;
+        min-width: 96%;
+    }
+    #page-header .logo{
+        margin-right: 10px; 
+    }
+    .breadcrumb-button{
+        float:none;
+    }
+
+}
+
+ /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
 
 
 
 
 
+@media (min-width:641px) and (max-device-width : 960px)  { 
+   input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link, input.form-submit:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input.form-submit:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, .ical-link:hover{
+        min-width:100%;
+        max-width: 920px;
+        padding: 10px 0;
+    }
+    .singlebutton div{
+        display: block;
+    }
+     .block-region button,.block-region input.form-submit, .block-region input[type="button"],.block-region input[type="submit"], .block-region input[type="reset"]{
+        margin: 0!important;
+         display: block;
+         min-width: 100%;
+    }
+    .block_settings #adminsearchquery {
+        max-width: 100%;
+        min-width: 96%;
+    }
+    #page-header .logo{
+        margin-right: 10px; 
+    }
+    .breadcrumb-button .singlebutton{
+        float:none;
+    }
+    
+/* block tap fixes*/
+    .block_settings .block_tree .tree_item, .block_navigation .block_tree .tree_item{
+        margin:10px 0;
+    }
+}
+ /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+@media (min-width:961px) { }
+ /* big landscape tablets, laptops, and desktops */
+@media (min-width:1025px) { 
+    input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link{
+        width: auto;
+    }
+}
+ /* hi-res laptops and desktops */
+@media (min-width:1281px) { 
+    input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link{
+        width: auto;
+    }
+}
+
+/* little layout fix for mobile / tablet */
 
 
+@media (max-width: 979px) and (min-width: 768px){
+    .row-fluid .offset3:first-child {
+            margin-left: 0%;
 
-
-
-
+    }
+}
 /* Custom CSS Settings
 -------------------------*/
 [[setting:customcss]]
