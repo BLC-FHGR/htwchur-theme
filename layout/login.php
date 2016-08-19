@@ -83,9 +83,9 @@ echo $OUTPUT->doctype() ?>
 <!-- EMBEDDED-WAYF-START -->
 <script type="text/javascript">// <![CDATA[
 var wayf_URL = "https://wayf.switch.ch/SWITCHaai/WAYF";
-var wayf_sp_entityID = "https://moodle.htwchur.ch/shibboleth";
-var wayf_sp_handlerURL = "https://moodle.htwchur.ch/Shibboleth.sso";
-var wayf_return_url = "https://moodle.htwchur.ch/auth/shibboleth/index.php";
+var wayf_sp_entityID = "https://mdl-tst.htwchur.ch/shibboleth";
+var wayf_sp_handlerURL = "https://mdl-tst.htwchur.ch/Shibboleth.sso";
+var wayf_return_url = "https://mdl-tst.htwchur.ch/auth/shibboleth/index.php";
 var wayf_show_remember_checkbox = false;
 var wayf_auto_login = false;
 var wayf_hide_after_login = true;
@@ -94,12 +94,12 @@ var wayf_hide_categories =  new Array("tertiaryb","uppersecondary");
 var wayf_unhide_idps = new Array("https://aai-login.fh-htwchur.ch/idp/shibboleth");
 var wayf_hide_idps = new Array();
 var wayf_use_improved_drop_down_list = true;
-var wayf_sp_samlDSURL = "https://moodle.htwchur.ch/Shibboleth.sso/Login";
+var wayf_sp_samlDSURL = "https://mdl-tst.htwchur.ch/Shibboleth.sso/Login";
 var wayf_auto_redirect_if_logged_in = false;
 // ]]></script>
 <script src="https://wayf.switch.ch/SWITCHaai/WAYF/embedded-wayf.js" type="text/javascript"></script>
 <noscript>
-    <p><strong>Login für Studierende und Dozierende via&nbsp;<a href="https://moodle.htwchur.ch/auth/shibboleth">SWITCHaai</a> mit HTW-Account-Daten:</strong><!-- <a href="https://moodle.htwchur.ch/auth/shibboleth"><img src="http://moodle.htwchur.ch/aai_button.gif" style="margin-top: 5px; margin-left: auto; margin-right: auto;" /></a>   --></p>
+    <p><strong>Login für Studierende und Dozierende via&nbsp;<a href="https://mdl-tst.htwchur.ch/auth/shibboleth">SWITCHaai</a> mit HTW-Account-Daten:</strong><!-- <a href="https://mdl-tst.htwchur.ch/auth/shibboleth"><img src="http://mdl-tst.htwchur.ch/aai_button.gif" style="margin-top: 5px; margin-left: auto; margin-right: auto;" /></a>   --></p>
 </noscript>
 <!-- EMBEDDED-WAYF-END -->
 </div>

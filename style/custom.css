@@ -22,11 +22,13 @@ h1, h2, h3, a {
 #page-header .logo {
   display: inline-block;
   vertical-align: top;
-  height: 100px;
+  height: 110px;
   margin-left: 10px;
   margin-right: 20px;
   background-position: left 20px;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+
+}
 
 .dir-rtl .logo {
   background-position: right 20px;
@@ -164,11 +166,15 @@ h1, h2, h3, a {
 .breadcrumb{
     border-radius: 2px;
 }
-
-button, input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link, input.form-submit, input#id_submitbutton, input#id_submitbutton2, .path-admin .buttons input[type="submit"], td.submit input{
+button, input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], input[name="searchwikicontent"]+input[type="submit"], select+input[type="submit"], input[type="text"]+input[type="button"], input[type="password"]+input[type="submit"], input[type="text"]+button, input[type="text"]+input[type="submit"], select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{
+    margin-bottom: 0!important;
+    margin-top: 2px;
+}
+button, input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link, input.form-submit, input#id_submitbutton, input#id_submitbutton2, .path-admin .buttons input[type="submit"], td.submit input, #notice .singlebutton+.singlebutton input, .submit.buttons input[name="cancel"], button:first-child, input.form-submit:first-child, input[type="button"]:first-child, input[type="submit"]:first-child, input[type="reset"]:first-child, ical-link:first-child{
     display: inline-block;
     padding: 4px 12px;
-    margin:10px 0;
+   /* margin: 0;
+    margin-top: 0px;*/
     font-size: 14px;
     line-height: 20px;
     text-align: center;
@@ -176,7 +182,6 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
     cursor: pointer;
     color: #fff;
     text-shadow: none;
-
     background-color: #223E92;
     background-image: none;
     filter: none;
@@ -195,10 +200,11 @@ button, input.form-submit, input[type="button"], input[type="submit"], input[typ
     -o-transition: all 120ms ease-in-out;
     transition: all 120ms ease-in-out;
 }
-button:hover, input.form-submit:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input.form-submit:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, .ical-link:hover, input.form-submit:hover, input#id_submitbutton:hover, input#id_submitbutton2:hover, .path-admin .buttons input[type="submit"]:hover, td.submit input:hover{
+button:hover, input.form-submit:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input.form-submit:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, .ical-link:hover, input.form-submit:hover, input#id_submitbutton:hover, input#id_submitbutton2:hover, .path-admin .buttons input[type="submit"]:hover, td.submit input:hover, #notice .singlebutton+.singlebutton input:hover, .submit.buttons input[name="cancel"]:hover, button:first-child:hover, input.form-submit:first-child:hover, input[type="button"]:first-child:hover, input[type="submit"]:first-child:hover, input[type="reset"]:first-child:hover, ical-link:first-child{
     display: inline-block;
     padding: 4px 12px;
-    margin-bottom: 10px 0;
+   /* margin: 0;
+    margin-top: 0px;*/
     font-size: 14px;
     line-height: 20px;
     text-align: center;
@@ -217,9 +223,12 @@ button:hover, input.form-submit:hover, input[type="button"]:hover, input[type="s
     border-radius: 2px;
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
     -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
-    box-shadow:  0 1px 1px rgba(0,0,0,0.15);
-    
+    box-shadow:  0 1px 1px rgba(0,0,0,0.15);   
 }
+/*input[name="searchwikicontent"]+input[type="submit"]:hover, select+input[type="submit"]:hover, input[type="text"]+input[type="button"]:hover, input[type="password"]+input[type="submit"]:hover, input[type="text"]+button:hover, input[type="text"]+input[type="submit"]:hover, input[name="searchwikicontent"]+input[type="submit"]:active, select+input[type="submit"]:active, input[type="text"]+input[type="button"]:active, input[type="password"]+input[type="submit"]:active, input[type="text"]+button:active, input[type="text"]+input[type="submit"]:active, input[name="searchwikicontent"]+input[type="submit"]:focus, select+input[type="submit"]:focus, input[type="text"]+input[type="button"]:focus, input[type="password"]+input[type="submit"]:focus, input[type="text"]+button:focus, input[type="text"]+input[type="submit"]:focus, input[name="searchwikicontent"]+input[type="submit"]:visited, select+input[type="submit"]:visited, input[type="text"]+input[type="button"]:visited, input[type="password"]+input[type="submit"]:visited, input[type="text"]+button:visited, input[type="text"]+input[type="submit"]:visited{
+    margin: 0 0 10px 5px;
+}*/
+
 .ical-link:before  {
     content: "\f019";
     font-family: FontAwesome;
@@ -228,24 +237,26 @@ button:hover, input.form-submit:hover, input[type="button"]:hover, input[type="s
 }
 /* iCal Language specifications */
 .ical-link:lang(de):after { 
- content: ' herunterladen'
+ content: ': Kalender importieren'
 }
 .ical-link:lang(en):after { 
-content: ': Download calendar'
+content: ': Import calendar'
 }
-
+.ical-link:lang(fr):after { 
+content: ': importer calendrier'
+}
+.ical-link:lang(it):after { 
+content: ': importare calendario'
+}
 /*maybe needed: take care when testing!*/
 button:first-child, input.form-submit:first-child, input[type="button"]:first-child, input[type="submit"]:first-child, input[type="reset"]:first-child, ical-link:first-child{
 }
-
-
 /* Cleanup: header region with breadcrumb, buttongroup and welcome messages */
 
 .page-header-image img {
     width: 54%;
     height: auto;
 }
-
 .page-context-header {
     background: #F5F5F5;
     padding: 8px 0px 0px 0px;
@@ -267,20 +278,51 @@ header#page-header {
     margin-bottom: 4px;
 }
 .page-context-header .page-header-headings h1{
-    padding-left: 10px;
+    padding-left: 26px;
     font-size: 1.8em;
 }
-.page-context-header .page-header-headings h1:before {content: 'Welcome ';}
-
-.page-context-header .page-header-headings h1:after {content: '!';}
 
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{
     margin-bottom: 10px;
 }
+
 .sectionname span {
     font-size: .8em;
     white-space: normal;
 }
+
+.breadcrumb-button input.form-submit,.breadcrumb-button input[type="button"],.breadcrumb-button input[type="submit"],.breadcrumb-button input[type="reset"], .breadcrumb-button input.form-submit, .breadcrumb-button input#id_submitbutton,.breadcrumb-button input#id_submitbutton2, .breadcrumb-button.path-admin .buttons input[type="submit"],.breadcrumb-button td.submit input{
+/*    margin: 2px 10px 0 0;*/
+    color: #fff;
+    background-color: #F44336;
+        text-decoration: none;
+    text-shadow: none;
+}
+
+.breadcrumb-button input.form-submit,.breadcrumb-button input[type="button"]:hover,.breadcrumb-button input[type="submit"]:hover,.breadcrumb-button input[type="reset"]:hover, .breadcrumb-button input.form-submit:hover, .breadcrumb-button input#id_submitbutton:hover,.breadcrumb-button input#id_submitbutton2:hover, .breadcrumb-button.path-admin .buttons input[type="submit"]:hover,.breadcrumb-button td.submit input:hover{
+    /*margin: 2px 10px 0 0;*/
+    color: #fff;
+    background-color:#E53935;
+    text-decoration: none;
+    text-shadow: none;
+}
+
+.jsenabled .navbar-inverse .usermenu .moodle-actionmenu.show, .navbar-inverse .nav li.dropdown.open>.dropdown-toggle, .navbar-inverse .nav li.dropdown.active>.dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active>.dropdown-toggle{
+     color: #fff;
+    background-color: #121953;
+}
+
+/* fix main regaion start page */
+
+.content-only #region-main-box, .content-only #region-main {
+    width: auto;
+}
+
+.content-only #region-main.span9, .empty-region-side-post #region-bs-main-and-pre.span9, .empty-region-side-pre #region-bs-main-and-post.span9, .empty-region-side-post #region-bs-main-and-post.span9 #region-main.span8, .jsenabled.docked-region-side-post #region-bs-main-and-pre.span9, .jsenabled.docked-region-side-post #region-bs-main-and-post.span9 #region-main.span8, .jsenabled.docked-region-side-pre #region-bs-main-and-post.span9 {
+    width: auto;
+}
+
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /* * * * * * * * M E D I A ** Q U E R I E S* * * * * * * */
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -328,12 +370,24 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     .breadcrumb-button{
         float:none;
     }
+    
+    /* fix mobile navigation: input field wiki*/
+    select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{
+        width: 100%;
+    }
+    
+    
+    
+    /* fix wrong navbar inverse color*/
+    .navbar-inverse .nav-collapse .nav>li>a:hover, .navbar-inverse .nav-collapse .nav>li>a:focus, .navbar-inverse .nav-collapse .dropdown-menu a:hover, .navbar-inverse .nav-collapse .dropdown-menu a:focus{
+        background-color: #121953;
+    }
+    
+    
     /* block tap fixes*/
     .block_settings .block_tree .tree_item, .block_navigation .block_tree .tree_item{
         margin:10px 0;
-    }
-
-    
+    } 
     /* fix: mobile: editor width */
     .form-item, .mform .fitem, .form-item, .mform .fitem_ftext input[size]{
         min-width: 280px;
@@ -360,7 +414,6 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
      bottom:0px!important;   
     }
     /* fix fieldset */
-    
     #page-enrol-users #filterform .fitem{
         white-space: normal;
 
@@ -399,6 +452,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 
 
 @media (min-width:481px)and (max-device-width:640px) {
+    
     /* fix: overlapping frame size on mobile / horizontal scroll*/
     #page-header .logo{
         margin:0px;
@@ -426,7 +480,30 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     .breadcrumb-button{
         float:none;
     }
-
+        /* tablet menu fix floats and frame width*/
+    .nav-collapse .nav>li{
+        float: left;
+        margin-top: 6px;
+    }
+    .breadcrumb-button .singlebutton{
+        float:right;
+        width: auto;
+        max-width: 95%;
+    }
+    .breadcrumb-button{
+        float:right;
+    }
+        /* fix mobile navigation: input field wiki*/
+    select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{
+        width: 100%;
+    }
+    
+    
+    /* fix wrong navbar inverse color*/
+    .navbar-inverse .nav-collapse .nav>li>a:hover, .navbar-inverse .nav-collapse .nav>li>a:focus, .navbar-inverse .nav-collapse .dropdown-menu a:hover, .navbar-inverse .nav-collapse .dropdown-menu a:focus{
+        background-color: #121953;
+    }
+    
 }
 
  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -437,6 +514,11 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 
 
 @media (min-width:641px) and (max-device-width : 960px)  { 
+    /* fix: overlapping frame size on mobile / horizontal scroll*/
+    #page-header .logo{
+        margin:0px;
+        margin-right: 0px;
+    }
    input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link, input.form-submit:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input.form-submit:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, .ical-link:hover{
         min-width:100%;
         max-width: 920px;
@@ -457,9 +539,25 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     #page-header .logo{
         margin-right: 10px; 
     }
-    .breadcrumb-button .singlebutton{
-        float:none;
+    /* tablet menu fix floats and frame width*/
+    .nav-collapse .nav>li{
+        float: left;
+        margin-top: 6px;
     }
+    .breadcrumb-button .singlebutton{
+        float:right;
+        width: auto;
+        max-width: 95%;
+    }
+    .breadcrumb-button{
+        float:right;
+    }
+    /* fix wrong navbar inverse color*/
+    .navbar-inverse .nav-collapse .nav>li>a:hover, .navbar-inverse .nav-collapse .nav>li>a:focus, .navbar-inverse .nav-collapse .dropdown-menu a:hover, .navbar-inverse .nav-collapse .dropdown-menu a:focus{
+        background-color: #121953;
+    }
+    
+    
     
 /* block tap fixes*/
     .block_settings .block_tree .tree_item, .block_navigation .block_tree .tree_item{
@@ -467,7 +565,13 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     }
 }
  /* tablet, landscape iPad, lo-res laptops ands desktops */ 
-@media (min-width:961px) { }
+@media (min-width:961px) { 
+    /* fix: overlapping frame size on mobile / horizontal scroll*/
+    #page-header .logo{
+        margin:0px;
+        margin-right: 0px;
+    }
+}
  /* big landscape tablets, laptops, and desktops */
 @media (min-width:1025px) { 
     input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link{
