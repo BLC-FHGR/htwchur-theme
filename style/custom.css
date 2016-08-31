@@ -248,10 +248,15 @@ button:hover, input.form-submit:hover, input[type="button"]:hover, input[type="s
     margin: 0 0 10px 5px;
 }*/
 
+
+
 .ical-link:before  {
-    content: "\f019";
-    font-family: FontAwesome;
-    font-size: 14px;
+    content: "\0021E9";
+    text-decoration: underline;
+    font-size: 22px;
+    font-weight: lighter;
+   /* font-family: FontAwesome;*/
+
     margin-right: 10px;
 }
 /* iCal Language specifications */
@@ -329,7 +334,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     background-color: #121953;
 }
 
-/* fix main regaion start page */
+/* fix main region start page was too large */
 
 .content-only #region-main-box, .content-only #region-main {
     width: auto;
@@ -338,6 +343,17 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .content-only #region-main.span9, .empty-region-side-post #region-bs-main-and-pre.span9, .empty-region-side-pre #region-bs-main-and-post.span9, .empty-region-side-post #region-bs-main-and-post.span9 #region-main.span8, .jsenabled.docked-region-side-post #region-bs-main-and-pre.span9, .jsenabled.docked-region-side-post #region-bs-main-and-post.span9 #region-main.span8, .jsenabled.docked-region-side-pre #region-bs-main-and-post.span9 {
     width: auto;
 }
+
+/******** fix: jumping breadcrumb region ******/
+
+
+    #page-navbar .breadcrumb-button input[type="submit"]{
+    display: none!important;
+    visibility: hidden;
+
+}
+
+
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * */

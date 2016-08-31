@@ -82,8 +82,8 @@ echo $OUTPUT->doctype() ?>
         ?>
     </footer>
 
-     <script type="application/javascript">
- $("nav .nav-collapse .pull-right").after($(".breadcrumb-button"));
+    <script type="application/javascript">
+        $("nav .nav-collapse .pull-right").after($(".breadcrumb-button"));
     </script>
     
     <?php echo $OUTPUT->standard_end_of_body_html() ?>

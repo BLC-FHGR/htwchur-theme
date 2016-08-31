@@ -30,11 +30,12 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2016080901;
+$plugin->version   = 2016082601;
 $plugin->requires  = 2015050500;
 $plugin->component = 'theme_htwchur';
 $plugin->dependencies = array(
     'theme_bootstrapbase'  => 2015050500,
 );
+$plugin->release   = "2.0"; // User-friendly version number
 
 ?>
