@@ -10,6 +10,9 @@
 /**
  * Gradients
  */
+
+
+
 .navbar-inverse .navbar-inner {
   background: #00194d; }
 
@@ -353,6 +356,27 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 
 }
 
+/* ******* padding in requirements ****** */
+#fitem_id_availabilityconditionsjson .availability-plugincontrols {
+    padding: 10px 0 10px 4px;
+}
+
+.availability-header {
+    margin-bottom: 10px;
+}
+
+ #fitem_id_availabilityconditionsjson select,  #fitem_id_availabilityconditionsjson input[type=text]{
+top:0px;
+}
+
+
+/* ******** margin added to course search box ********* */
+
+#coursesearch{
+    margin-bottom: 10px;
+}
+
+
 
 
 
@@ -360,7 +384,14 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 /* * * * * * * * M E D I A ** Q U E R I E S* * * * * * * */
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
- /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+
+
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
  /* * * * * * * * * * *  smartphones, iPhone, portrait 480x320 phones * * * * * * * * * * */ 
 
 
