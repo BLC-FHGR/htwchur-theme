@@ -658,6 +658,14 @@ top:0px;
 
     }
 }
+@media print { 
+ /* All your print styles go here */
+#block-region-side-post, #page-header, #block-region-side-pre{ 
+  display: none !important; 
+} 
+}
+
+
 /* Custom CSS Settings
 -------------------------*/
 [[setting:customcss]]
