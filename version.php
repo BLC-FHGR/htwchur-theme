@@ -30,7 +30,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2016110101;
+$plugin->version   = 2016110201;
 $plugin->requires  = 2015050500;
 $plugin->component = 'theme_htwchur';
 $plugin->dependencies = array(

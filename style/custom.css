@@ -660,9 +660,19 @@ top:0px;
 }
 @media print { 
  /* All your print styles go here */
-#block-region-side-post, #page-header, #block-region-side-pre{ 
-  display: none !important; 
-} 
+  #block-region-side-post, #page-navbar, #block-region-side-pre, .navbar .navbar-inner, .nav-tabs a{ 
+    display: none !important; 
+    height:0 !important;
+  } 
+  #page-header:before{
+    content: 'HTW Chur | Hochschule für Technik und Wirtschaft';
+      max-height: 10px;
+  }
+  #pageheader{
+      display: none !important;
+      height:0 !important;
+  }
+
 }
 
 
