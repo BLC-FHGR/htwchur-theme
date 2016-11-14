@@ -662,15 +662,28 @@ top:0px;
  /* All your print styles go here */
   #block-region-side-post, #page-navbar, #block-region-side-pre, .navbar .navbar-inner, .nav-tabs a{ 
     display: none !important; 
-    height:0 !important;
+    height:0px !important;
   } 
+  .analysis th{
+      
+       white-space: pre !important;
+       max-width: 100%;
+  }
   #page-header:before{
+    margin-top:50px;
+    font-family: 'Roboto', Helvetica, sans-serif;
+    font-size: 24px;
     content: 'HTW Chur | Hochschule für Technik und Wirtschaft';
-      max-height: 10px;
+    max-height: 10px;
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
   }
   #pageheader{
       display: none !important;
       height:0 !important;
+  }
+  #region-main{
+    padding:0px 30px 0px 30px;
   }
 
 }
