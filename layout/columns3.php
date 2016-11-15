@@ -106,6 +106,11 @@ echo $OUTPUT->doctype() ?>
     </footer>
     <script type="application/javascript">
         $("nav .nav-collapse .pull-right").after($(".breadcrumb-button"));
+
+        $(".feedback_info:first").before('<button class="pull-right" onclick="printPage()">Drucken</button></br>');
+        function printPage() {
+            window.print();
+        };
     </script>
     <?php echo $OUTPUT->standard_end_of_body_html() ?>
 

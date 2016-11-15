@@ -25,6 +25,7 @@
 // Get the HTML for the settings bits.
 $html = theme_htwchur_get_html_for_settings($OUTPUT, $PAGE);
 
+
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
 <head>
@@ -84,6 +85,11 @@ echo $OUTPUT->doctype() ?>
 
     <script type="application/javascript">
         $("nav .nav-collapse .pull-right").after($(".breadcrumb-button"));
+        
+        $(".feedback_info:first").before('<button class="pull-right" onclick="printPage()">Drucken</button></br>');
+        function printPage() {
+            window.print();
+        };
     </script>
     
     <?php echo $OUTPUT->standard_end_of_body_html() ?>
