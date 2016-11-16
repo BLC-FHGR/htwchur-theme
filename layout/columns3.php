@@ -50,6 +50,7 @@ echo $OUTPUT->doctype() ?>
     <title><?php echo $OUTPUT->page_title(); ?></title>
     <link rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>" />
     <?php echo $OUTPUT->standard_head_html() ?>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -106,11 +107,14 @@ echo $OUTPUT->doctype() ?>
     </footer>
     <script type="application/javascript">
         $("nav .nav-collapse .pull-right").after($(".breadcrumb-button"));
-
-        $(".feedback_info:first").before('<button class="pull-right" onclick="printPage()">Drucken</button></br>');
+        /* super print button */
+        $(".feedback_info:first").before('<button class="pull-right superprintbutton" onclick="printPage()">Drucken</button></br>');
         function printPage() {
             window.print();
         };
+
+ 
+
     </script>
     <?php echo $OUTPUT->standard_end_of_body_html() ?>
 

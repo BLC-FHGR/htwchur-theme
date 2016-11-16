@@ -30,6 +30,7 @@ echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
 <head>
     <title><?php echo $OUTPUT->page_title(); ?></title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <link rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>" />
     <?php echo $OUTPUT->standard_head_html() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -85,7 +86,7 @@ echo $OUTPUT->doctype() ?>
 
     <script type="application/javascript">
         $("nav .nav-collapse .pull-right").after($(".breadcrumb-button"));
-        
+
         $(".feedback_info:first").before('<button class="pull-right" onclick="printPage()">Drucken</button></br>');
         function printPage() {
             window.print();
