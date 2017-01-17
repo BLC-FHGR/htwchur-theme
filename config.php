@@ -59,3 +59,5 @@ $THEME->layouts = array(
         'options' => array('langmenu' => true, 'nofooter' => true)
     )
 );
+$THEME->javascripts = array('jquery-1.11.2.min','classie', 'modernizr.custom', 'uisearch', 'd3v3.min', 'angular.min', 'jquery.min');
+$THEME->javascripts_footer = array('custom');
