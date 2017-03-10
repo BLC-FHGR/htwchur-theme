@@ -14,11 +14,17 @@ $.urlParam = function(name){
 }
 
 function initSVGRoot() {
-    $("#feedback_analysis").html('');
-    svgRoot = d3.select("#feedback_analysis")
-                .append("svg")
-                .attr("width", "100%")
-                .attr("height", "100%");
+    // create or clear the SVG area
+    if (!svgRoot) {
+        svgRoot = d3.select("#feedback_analysis")
+                    .append("svg")
+                    .attr("width", "100%")
+                    .attr("height", "100%");
+    }
+    else {
+        // clear the SVG area
+        svgRoot.selectAll("*").remove();
+    }
 }
 
 function renderAxis(labels, d3Item) {
@@ -50,7 +56,17 @@ function ipr(k, a) {
     return [i, j];
 }
 
-function loadBoxChart() {
+function extractQuestionLabels(data) {
+    return data.map(function (d, i) {
+        return {
+            text: d.question,
+            xVal: 0,
+            yVal: i + 1
+        };
+    });
+}
+
+function loadChartResults(renderer, loader) {
     var baseurl = "/local/powertla/rest.php/content/survey/results/" + $.urlParam('id');
 
     $.ajax({
@@ -59,17 +75,27 @@ function loadBoxChart() {
         cache: false,
         dataType: "json",
         error: function() {
-            checkLiveUpdate(loadBoxChart);
+            checkLiveUpdate(loader);
         },
-        success: renderBoxChart
+        success: function(data) {
+            if (typeof data === "string") { // ensure a data array
+                data = JSON.parse(data);
+            }
+            renderer(data);
+            checkLiveUpdate(loader);
+        }
     });
 }
 
-function renderBoxChart(data) {
-    if (typeof data === "string") { // ensure a data array
-        data = JSON.parse(data);
-    }
+function loadBoxChart() {
+    loadChartResults(renderBoxChart, loadBoxChart);
+}
 
+function loadBubbleChart() {
+    loadChartResults(renderBubbleChart, loadBubbleChart);
+}
+
+function renderBoxChart(data) {
     svgRoot.selectAll("*").remove();
     graph = null;
 
@@ -124,45 +150,42 @@ function renderBoxChart(data) {
         bdata.push(odata);
     }
 
-    console.log(bdata);
     // overall chart ranges
     absMin = d3.min(edata.map(function (d) { return d[0]; }));
     absMax = d3.max(edata.map(function (d) { return d[1]; }));
 
-    var xLabels = [absMin, 0, absMax];
-
     // the y lables are the questions.
-    var yLabels = rdata.map(function (d, i) {
-        return {
-            xVal: 0,
-            yVal:i+1,
-            text: d.question
-        };
-    });
 
     var bbox = {
         width: Math.floor($('#feedback_analysis').width()),
         height: Math.floor($('#feedback_analysis').height())
     };
 
-
-    // reverse the y axis, so 0 is top
+    // reverse the y axis, so 0 is on top
     var yscale = d3.scale.linear()
                    .domain([rdata.length + 1, 0])
-                   .range([rdata.length * 50, 0]);
+                   .range( [rdata.length * 50, 0]);
 
+    var yLabels = extractQuestionLabels(rdata);
+    var xLabels = [absMin, 0, absMax];
 
    // add the y axis labels
    if (!$("#y-axis").length) {
-       renderAxis(yLabels,
-                  svgRoot.append("g")
-                         .attr('id', "y-axis")
-                         .attr("transform","translate(20," + 10 + ")"))
-           .attr('text-anchor', 'right')
-           .attr('y', function (d, i) {
-               return yscale(d.yVal);
-           })
-       .attr('dy', '0.3ex');
+       svgRoot.append("g")
+              .attr('id', "y-axis")
+              .attr("transform","translate(20," + 10 + ")")
+              .selectAll('text')
+              .data(yLabels)
+              .enter()
+              .append("text")
+              .text(function axisLabel(labelItem) {
+                  return labelItem.text;
+              })
+              .attr('text-anchor', 'right')
+              .attr('y', function (d, i) {
+                  return yscale(d.yVal);
+              })
+              .attr('dy', '0.3ex');
    }
 
    var ybbox = d3.select('#y-axis').node().getBBox();
@@ -192,6 +215,8 @@ function renderBoxChart(data) {
           return xscale(d);
        })
        .text(function(d) { return d; });
+
+  xaxis.selectAll("text").exit().remove();
 
   if (!$("#boxdata").length) {
       graph = svgRoot.append("g")
@@ -235,6 +260,8 @@ function renderBoxChart(data) {
     .attr("x2", function(d) { return xscale(parseInt(d.data[d.ipr[1]])); })
     .attr("y2", function(d) { return yscale(d.y + 1); });
 
+  graph.selectAll("*").exit().remove();
+
   xaxis.selectAll('line')
     .data(xLabels)
     .enter()
@@ -247,172 +274,153 @@ function renderBoxChart(data) {
     .attr("x2", function(d) { return xscale(0); })
     .attr("y2", function(d) { return yscale(rdata.length + 1) + 20; });
 
-    checkLiveUpdate(loadBoxChart);
+  xaxis.selectAll("line").exit().remove();
 }
 
-function loadBubbleChart() {
-    var baseurl = "/local/powertla/rest.php/content/survey/results/" + $.urlParam('id');
+function renderBubbleChart(data) {
+    var i, y, j;
+    var realdata = [];
+    var graphics = [];
+    var maxdomain = 10;
+    var rangeto = 0;
 
-    $.ajax({
-        // url: "data.json",
-        dataType: "json",
-        url: baseurl,
-        type: "get",
-        cache: false, // ensure updates
-        success: function renderChart(data) {
-            var i, y, j;
-            var realdata = [];
-            var graphics = [];
-            var maxdomain = 10;
-            var rangeto = 0;
+    // extract the questions from the returned data
+    for (i = 0; i < data.length; i++) {
+        switch (data[i].typ) {
+            case 'multichoicerated':
+            case 'multichoice':
+                realdata.push(data[i]);
+                break;
+            default:
+                break;
+        }
+    }
 
-            if (typeof data === "string") { // ensure a data array
-                data = JSON.parse(data);
-            }
+    // extract the axis labels
 
-            // extract the questions from the returned data
-            for (i = 0; i < data.length; i++) {
-                switch (data[i].typ) {
-                    case 'multichoicerated':
-                    case 'multichoice':
-                        realdata.push(data[i]);
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            // extract the axis labels
-
-            // This ONLY works if all questions have the same values!
-            // if we have different questions, then we MUST create multiple graphs
-            var xLabels = realdata[0].answerValues.map(function (d, i) {
-                return {
-                    xVal: i + 1,
-                    yVal: 0,
-                    text: Array.isArray(d)? d[1] : d
-                };
-            });
-
-            // the y lables are the questions.
-            var yLabels = realdata.map(function (d, i) {
-                return {
-                    xVal: 0,
-                    yVal:i+1,
-                    text: d.question
-                };
-            });
-
-            // analyse the responses
-            for (y = 0; y < realdata.length; y++) {
-                var radius = [];
-                var valueHash = {};
-                var tmpRangeTo = parseInt(realdata[y].range_to);
-
-                if(tmpRangeTo > rangeto){
-                    rangeto = tmpRangeTo;
-                }
-
-                if (realdata[y].answers.length > maxdomain){
-                    maxdomain = realdata[y].answers.length;
-                }
-
-                for (j = 0; j < realdata[y].answerValues.length; j++){
-                    radius.push(0);
-                    var radiusRating = realdata[y].answerValues[j][0];
-                    valueHash[radiusRating] = j;
-                }
-
-                for (i = 0; i < realdata[y].answers.length; i++) {
-                    var radiusValue = parseInt(realdata[y].answers[i]);
-                    if (radiusValue > 0 || radiusValue === 0) {
-                        var radiusIndex = valueHash[radiusValue];
-                        console.log("val = " + radiusValue + "; id = " + radiusIndex + "; orig = " + realdata[y].answers[i]);
-
-                        radius[radiusIndex]++;
-                    }
-                }
-
-                for (i = 0; i < radius.length; i++) {
-                    graphics.push({
-                        rVal: radius[i],
-                        xVal: i + 1,
-                        yVal: y + 1
-                    });
-                }
-            }
-
-            // create d3 scale projection functions
-            var rscale = d3.scale.linear()
-                           .domain([0, maxdomain])
-                           .range([0, 30]);
-
-            var xscale = d3.scale.linear()
-                           .domain([0, rangeto+1])
-                           .range([0, 75 * (rangeto+1)]);
-
-            // reverse the y axis, so 0 is in the upper corner
-            var yscale = d3.scale.linear()
-                           .domain([realdata.length + 1, 0])
-                           .range([realdata.length * 75, 0]);
-
-            // add the y axis labels
-            if (!$("#y-axis").length) {
-                renderAxis(yLabels,
-                           svgRoot.append("g")
-                                  .attr('id', "y-axis")
-                                  .attr("transform","translate(20," + 10 + ")"))
-                    .attr('text-anchor', 'right')
-                    .attr('y', function (d, i) {
-                        return yscale(d.yVal);
-                    })
-                .attr('dy', '0.3ex');
-            }
-            var bbox = d3.select('#y-axis').node().getBBox();
-            var yaxisWidth = bbox.width;
-
-            $("#feedback_analysis").height(bbox.height + 50);
-
-            // svgRoot.attr("height", bbox.height + 25);
-
-            // add the x axis
-            if (!$("#x-axis").length) {
-                renderAxis(xLabels,
-                           svgRoot.append("g")
-                                 .attr('id', "x-axis")
-                                 .attr("transform","translate( " + (yaxisWidth + 10) + ",15)"))
-                   .attr('text-anchor', 'middle')
-                   .attr('x', function (d, i) {
-                       return xscale(d.xVal);
-                   });
-
-                   graph = svgRoot.append("g")
-                                  .attr("id", "datamatrix")
-                                  .attr("transform","translate(" + (yaxisWidth + 10) + "," + 10 + ")");
-           }
-
-           graph.selectAll('circle')
-                .data(graphics) // attach the graph data
-                .enter()
-                .append('circle')
-                .attr('class', function (d) {
-                    return "blue";
-                 })
-                 .attr('r', function (d) {
-                     return rscale(d.rVal);
-                 })
-                 .attr('cx', function (d) {
-                     return xscale(d.xVal);
-                 })
-                 .attr('cy', function (d) {
-                     return yscale(d.yVal);
-                 });
-
-            // check live update
-            checkLiveUpdate(loadBubbleChart);
-        },
-        error: function (msg) { checkLiveUpdate(loadBubbleChart); }
+    // This ONLY works if all questions have the same values!
+    // if we have different questions, then we MUST create multiple graphs
+    var xLabels = realdata[0].answerValues.map(function (d, i) {
+        return {
+            xVal: i + 1,
+            yVal: 0,
+            text: Array.isArray(d)? d[1] : d
+        };
     });
+
+    // the y lables are the questions.
+    var yLabels = realdata.map(function (d, i) {
+        return {
+            xVal: 0,
+            yVal:i+1,
+            text: d.question
+        };
+    });
+
+    // analyse the responses
+    for (y = 0; y < realdata.length; y++) {
+        var radius = [];
+        var valueHash = {};
+        var tmpRangeTo = parseInt(realdata[y].range_to);
+
+        if(tmpRangeTo > rangeto){
+            rangeto = tmpRangeTo;
+        }
+
+        if (realdata[y].answers.length > maxdomain){
+            maxdomain = realdata[y].answers.length;
+        }
+
+        for (j = 0; j < realdata[y].answerValues.length; j++){
+            radius.push(0);
+            var radiusRating = realdata[y].answerValues[j][0];
+            valueHash[radiusRating] = j;
+        }
+
+        for (i = 0; i < realdata[y].answers.length; i++) {
+            var radiusValue = parseInt(realdata[y].answers[i]);
+            if (radiusValue > 0 || radiusValue === 0) {
+                var radiusIndex = valueHash[radiusValue];
+                console.log("val = " + radiusValue + "; id = " + radiusIndex + "; orig = " + realdata[y].answers[i]);
+
+                radius[radiusIndex]++;
+            }
+        }
+
+        for (i = 0; i < radius.length; i++) {
+            graphics.push({
+                rVal: radius[i],
+                xVal: i + 1,
+                yVal: y + 1
+            });
+        }
+    }
+
+    // create d3 scale projection functions
+    var rscale = d3.scale.linear()
+                   .domain([0, maxdomain])
+                   .range([0, 30]);
+
+    var xscale = d3.scale.linear()
+                   .domain([0, rangeto+1])
+                   .range([0, 75 * (rangeto+1)]);
+
+    // reverse the y axis, so 0 is in the upper corner
+    var yscale = d3.scale.linear()
+                   .domain([realdata.length + 1, 0])
+                   .range([realdata.length * 75, 0]);
+
+    // add the y axis labels
+    if (!$("#y-axis").length) {
+        renderAxis(yLabels,
+                   svgRoot.append("g")
+                          .attr('id', "y-axis")
+                          .attr("transform","translate(20," + 10 + ")"))
+            .attr('text-anchor', 'right')
+            .attr('y', function (d, i) {
+                return yscale(d.yVal);
+            })
+        .attr('dy', '0.3ex');
+    }
+    var bbox = d3.select('#y-axis').node().getBBox();
+    var yaxisWidth = bbox.width;
+
+    $("#feedback_analysis").height(bbox.height + 50);
+
+    // add the x axis
+    if (!$("#x-axis").length) {
+        renderAxis(xLabels,
+                   svgRoot.append("g")
+                         .attr('id', "x-axis")
+                         .attr("transform","translate( " + (yaxisWidth + 10) + ",15)"))
+           .attr('text-anchor', 'middle')
+           .attr('x', function (d, i) {
+               return xscale(d.xVal);
+           });
+
+           graph = svgRoot.append("g")
+                          .attr("id", "datamatrix")
+                          .attr("transform","translate(" + (yaxisWidth + 10) + "," + 10 + ")");
+   }
+
+   var t = graph.selectAll('circle')
+                .data(graphics);
+                 // attach the graph data
+   t.enter().append('circle');
+   t.attr('class', function (d) {
+       return "blue";
+   })
+   .attr('r', function (d) {
+       return rscale(d.rVal);
+   })
+         .attr('cx', function (d) {
+             return xscale(d.xVal);
+         })
+         .attr('cy', function (d) {
+             return yscale(d.yVal);
+         });
+
+    t.exit().remove();
 }
 
 function loadBarChart() {
@@ -532,6 +540,7 @@ function clearSelection(tname) {
         $("#fbanalysis_bubblechart").removeClass("btn-primary");
         $("#fbanalysis_bubblechart").addClass("btn-outline-primary");
     }
+    initSVGRoot();
 }
 
 function toggleBoxChart() {
@@ -539,7 +548,6 @@ function toggleBoxChart() {
     $("#fbanalysis_boxchart").toggleClass("btn-outline-primary");
 
     clearSelection("#fbanalysis_boxchart");
-    initSVGRoot()
     loadBoxChart();
 }
 
@@ -547,7 +555,6 @@ function toggleBarChart() {
     $("#fbanalysis_barchart").toggleClass("btn-primary");
     $("#fbanalysis_barchart").toggleClass("btn-outline-primary");
     clearSelection("#fbanalysis_barchart");
-    initSVGRoot()
     loadBarChart();
 }
 
@@ -555,7 +562,6 @@ function toggleBubbleChart() {
     $("#fbanalysis_bubblechart").toggleClass("btn-primary");
     $("#fbanalysis_bubblechart").toggleClass("btn-outline-primary");
     clearSelection("#fbanalysis_bubblechart");
-    initSVGRoot()
     loadBubbleChart();
 }
 
