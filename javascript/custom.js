@@ -206,9 +206,9 @@ function renderBoxChart(data) {
              .attr("transform","translate( " + yaxisWidth + ",10)");
   }
 
-  xaxis.selectAll('text')
-       .data(xLabels)
-       .enter()
+  var tx = xaxis.selectAll('text')
+       .data(xLabels);
+  tx.enter()
        .append("text")
        .attr('text-anchor', 'middle')
        .attr('x', function (d) {
@@ -216,7 +216,7 @@ function renderBoxChart(data) {
        })
        .text(function(d) { return d; });
 
-  xaxis.selectAll("text").exit().remove();
+  tx.exit().remove();
 
   if (!$("#boxdata").length) {
       graph = svgRoot.append("g")
@@ -249,9 +249,10 @@ function renderBoxChart(data) {
     })
     .attr('height', function (d) { return yscale(.4); });
 
-  graph.selectAll("line")
-    .data(bdata)
-    .enter()
+  var tb = graph.selectAll("line")
+    .data(bdata);
+
+  tb.enter()
     .append("line")
     .attr("stroke", "black")
     .attr("stroke-width", 1)
@@ -260,11 +261,11 @@ function renderBoxChart(data) {
     .attr("x2", function(d) { return xscale(parseInt(d.data[d.ipr[1]])); })
     .attr("y2", function(d) { return yscale(d.y + 1); });
 
-  graph.selectAll("*").exit().remove();
+  tb.exit().remove();
 
-  xaxis.selectAll('line')
-    .data(xLabels)
-    .enter()
+  var t = xaxis.selectAll('line')
+    .data(xLabels);
+    t.enter()
     .append("line")
     .attr("stroke", "grey")
     .attr("stroke-dasharray", "5, 5")
@@ -274,7 +275,7 @@ function renderBoxChart(data) {
     .attr("x2", function(d) { return xscale(0); })
     .attr("y2", function(d) { return yscale(rdata.length + 1) + 20; });
 
-  xaxis.selectAll("line").exit().remove();
+  t.exit().remove();
 }
 
 function renderBubbleChart(data) {
