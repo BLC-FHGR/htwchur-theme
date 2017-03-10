@@ -1,6 +1,6 @@
 console.log("test ob custom geht")
 
-var svgRoot, graph;
+var svgRoot, graph, xaxis;
 
 // get params of the url to get dataset id
 $.urlParam = function(name){
@@ -21,24 +21,241 @@ function initSVGRoot() {
                 .attr("height", "100%");
 }
 
+function renderAxis(labels, d3Item) {
+    return d3Item.selectAll('text')
+                 .data(labels)
+                 .enter()
+                 .append("text")
+                 .text(function axisLabel(labelItem) {
+                     return labelItem.text;
+                 });
+}
+
+function ipr(k, a) {
+    var q1  = d3.quantile(a, 0.25),
+        q3  = d3.quantile(a, 0.75),
+        iqr = (q3 - q1) * k,
+        i   = -1,
+        j   = a.length;
+
+    if (isNaN(q3)) {
+        q3 = d3.median(a);
+    }
+    if (isNaN(q1)) {
+        q1 = d3.median(a);
+    }
+
+    while (a[++i] < q1 - iqr);
+    while (a[--j] > q3 + iqr);
+    return [i, j];
+}
+
 function loadBoxChart() {
+    var baseurl = "/local/powertla/rest.php/content/survey/results/" + $.urlParam('id');
+
+    $.ajax({
+        url: baseurl,
+        type: "get",
+        cache: false,
+        dataType: "json",
+        error: function() {
+            checkLiveUpdate(loadBoxChart);
+        },
+        success: renderBoxChart
+    });
+}
+
+function renderBoxChart(data) {
+    if (typeof data === "string") { // ensure a data array
+        data = JSON.parse(data);
+    }
+
+    svgRoot.selectAll("*").remove();
+    graph = null;
+
+    var i;
+    var absMin = 0;
+    var absMax = 0;
+
+    var rdata = [];
+    var edata = [];
+    var bdata = [];
+    var odata = {};
+
+    var sdata = [];
+
+    for (i = 0; i < data.length; i++) {
+        switch (data[i].typ) {
+            case "numeric":
+                rdata.push(data[i]);
+                break;
+            default:
+                break;
+        }
+    }
+
+    // process the incoming data
+    for (i = 0; i < rdata.length; i++) {
+        rdata[i].answers = rdata[i].answers.map(function(d) {return (+d);});
+
+        sdata = rdata[i].answers.sort(function (a,b) { return (+a) - (+b); });
+
+        // console.log(sdata);
+        odata = {
+            text: rdata[i].question,
+            median: d3.median(sdata),
+            q1: d3.quantile(sdata, 0.25),
+            q3: d3.quantile(sdata),
+            ipr: ipr(1.5, sdata),
+            y: i,
+            data: sdata
+        };
+
+        if (isNaN(odata.q3)) {
+            odata.q3 = odata.median;
+        }
+        if (isNaN(odata.q1)) {
+            odata.q1 = odata.median;
+        }
+        if (odata.q1 === odata.q3) {
+            odata.q1 = odata.q1 - 1;
+        }
+        edata.push(d3.extent(rdata[i].answers));
+        bdata.push(odata);
+    }
+
+    console.log(bdata);
+    // overall chart ranges
+    absMin = d3.min(edata.map(function (d) { return d[0]; }));
+    absMax = d3.max(edata.map(function (d) { return d[1]; }));
+
+    var xLabels = [absMin, 0, absMax];
+
+    // the y lables are the questions.
+    var yLabels = rdata.map(function (d, i) {
+        return {
+            xVal: 0,
+            yVal:i+1,
+            text: d.question
+        };
+    });
+
+    var bbox = {
+        width: Math.floor($('#feedback_analysis').width()),
+        height: Math.floor($('#feedback_analysis').height())
+    };
+
+
+    // reverse the y axis, so 0 is top
+    var yscale = d3.scale.linear()
+                   .domain([rdata.length + 1, 0])
+                   .range([rdata.length * 50, 0]);
+
+
+   // add the y axis labels
+   if (!$("#y-axis").length) {
+       renderAxis(yLabels,
+                  svgRoot.append("g")
+                         .attr('id', "y-axis")
+                         .attr("transform","translate(20," + 10 + ")"))
+           .attr('text-anchor', 'right')
+           .attr('y', function (d, i) {
+               return yscale(d.yVal);
+           })
+       .attr('dy', '0.3ex');
+   }
+
+   var ybbox = d3.select('#y-axis').node().getBBox();
+   var yaxisWidth = ybbox.width + 25;
+   // console.log("yaxis width " + yaxisWidth);
+
+   $("#feedback_analysis").height(ybbox.height + 70);
+
+   // console.log(bbox.width + " " +  yaxisWidth);
+
+   var xscale = d3.scale.linear()
+                  .domain([absMin - 5, (+absMax) + 5])
+                  .range([0, (bbox.width - Math.floor(yaxisWidth))]);
+
+  if (!$("#x-axis").length) {
+      xaxis = svgRoot.append("g")
+             .attr('id', "x-axis")
+             .attr("transform","translate( " + yaxisWidth + ",10)");
+  }
+
+  xaxis.selectAll('text')
+       .data(xLabels)
+       .enter()
+       .append("text")
+       .attr('text-anchor', 'middle')
+       .attr('x', function (d) {
+          return xscale(d);
+       })
+       .text(function(d) { return d; });
+
+  if (!$("#boxdata").length) {
+      graph = svgRoot.append("g")
+                      .attr('id', "boxdata")
+                      .attr("transform","translate(" + yaxisWidth + ",10)");
+  }
+
+  graph.selectAll('rect')
+    .data(bdata)
+    .enter()
+    .append("rect")
+    .attr("r", 2)
+    .attr('class', function (d) {
+        return "blue";
+    })
+    .attr('y', function(d) {
+        return yscale((d.y + 1) - 0.2);
+    })
+    .attr('x', function(d) {
+        // console.log(d.q1);
+        return xscale(d.q1);
+    })
+    .attr('width', function (d) {
+        var q3 = d.q3;
+        if (isNaN(q3)) {
+            q3 = d.median;
+        }
+        // console.log( q3 + " - " +  d.q1 + " = " + (q3 - d.q1) +  " .. " + xscale((q3 - d.q1)));
+        return xscale(q3) - xscale(d.q1);
+    })
+    .attr('height', function (d) { return yscale(.4); });
+
+  graph.selectAll("line")
+    .data(bdata)
+    .enter()
+    .append("line")
+    .attr("stroke", "black")
+    .attr("stroke-width", 1)
+    .attr("x1", function(d) { return xscale(parseInt(d.data[d.ipr[0]])); })
+    .attr("y1", function(d) { return yscale(d.y + 1); })
+    .attr("x2", function(d) { return xscale(parseInt(d.data[d.ipr[1]])); })
+    .attr("y2", function(d) { return yscale(d.y + 1); });
+
+  xaxis.selectAll('line')
+    .data(xLabels)
+    .enter()
+    .append("line")
+    .attr("stroke", "grey")
+    .attr("stroke-dasharray", "5, 5")
+    .attr("stroke-width", .75)
+    .attr("x1", function(d) { return xscale(0); })
+    .attr("y1", function(d) { return yscale(0.5); })
+    .attr("x2", function(d) { return xscale(0); })
+    .attr("y2", function(d) { return yscale(rdata.length + 1) + 20; });
+
+    checkLiveUpdate(loadBoxChart);
 }
 
 function loadBubbleChart() {
-    function renderAxis(labels, d3Item) {
-        return d3Item.selectAll('text')
-                     .data(labels)
-                     .enter()
-                     .append("text")
-                     .text(function axisLabel(labelItem) {
-                         return labelItem.text;
-                     });
-    }
-
     var baseurl = "/local/powertla/rest.php/content/survey/results/" + $.urlParam('id');
 
     $.ajax({
         // url: "data.json",
+        dataType: "json",
         url: baseurl,
         type: "get",
         cache: false, // ensure updates
@@ -350,7 +567,7 @@ function extendUI() {
         .append('<span id="fbanalysis_barchart" class="btn btn-outline-primary">Bar Chart</span>')
         .append('<span id="fbanalysis_bubblechart" class="btn btn-outline-primary">Bubble Chart</span>')
         .append('<span id="fbanalysis_boxchart" class="btn btn-outline-primary">Box Chart</span>')
-        .append('<span id="fbanalysis_liveupdate" class="btn btn-outline-warning">Live Update</span>');
+        .append('<span id="fbanalysis_liveupdate" class="btn btn-outline-warning">Live Update (beta)</span>');
 
     $("#fbanalysis_barchart").click(toggleBarChart);
     $("#fbanalysis_boxchart").click(toggleBoxChart);
