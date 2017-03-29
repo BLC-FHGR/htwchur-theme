@@ -417,9 +417,99 @@ div.bar {
     fill:#333;
     margin:2px;
   }
+/* blc_handbuch*/
 
 
+.toggle-box-box {
+  margin: 4px;
+  background-color: rgba(202,176,124, 0.1);
+  padding: 4px;
+  border-radius: 3px;
+  box-shadow: 0px 2px 4px -2px rgba(0,0,0, 0.15);
+}
+.toggle-container-box {
+  width: 100%;
+  margin: 0px auto;
+ 
+}
+.toggle-container-box:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.toggle-container-box .toggle-button-box {
+  transition: all 0.2s ease;
+  display: block;
+  cursor: pointer;
+  float: left;
+  width: 33.3%;
+  color: rgba(75,146,164, 0.5);
+  font-size: 14px;
+  font-weight: 600;
+  background: transparent;
+  border-top: 6px solid rgba(75,146,164, 0.5);
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  outline: none;
+text-align:center;
+margin-bottom:4px;
+}
+.toggle-container-box .toggle-button-box.active-box {
+  color: rgba(75,146,164,1);
+  border-top: 6px solid rgba(75,146,164,1);
+}
+.toggle-container-box .toggle-button-box:hover {
+  color: rgba(75,146,164,1);
+}
+.toggle-content-box {
+  width: 100%;
+  text-align: justify;
+  line-height: 1.2em;
+}
+.content-box {
+  display: none;
 
+}
+.content-box p{
+padding:4px;}
+.content-box.active-box {
+  display: block;
+}
+.floating-boxes.active-box{
+  display: inline-flex!important;
+}
+.float-right-box{
+  float:right;
+  background-color: rgba(75,146,164,0.15);
+  padding:4px;
+  width:23%;
+  margin:2px;
+hyphens: auto;
+font-size:12px;
+
+}
+.float-right-box h5{
+  text-align:left;
+  font-weight:600;
+  font-size:14px;
+  font-color: rgb(75,146,164);
+}
+.float-right-box h6{
+  font-weight:600;
+  font-size:12px;
+  font-color: rgb(75,146,164);
+}
+.float-left-box{
+  float:left;
+  padding:10px;
+}
+
+/*feedback tool fixex*/
+
+#feedback_analysis svg {
+    padding: 30px;
+}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /* * * * * * * * M E D I A ** Q U E R I E S* * * * * * * */

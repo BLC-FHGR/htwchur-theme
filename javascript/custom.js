@@ -20,6 +20,7 @@ function initSVGRoot() {
                     .append("svg")
                     .attr("width", "100%")
                     .attr("height", "100%");
+
     }
     else {
         // clear the SVG area
@@ -192,6 +193,7 @@ function renderBoxChart(data) {
    var yaxisWidth = ybbox.width + 25;
    // console.log("yaxis width " + yaxisWidth);
 
+
    $("#feedback_analysis").height(ybbox.height + 70);
 
    // console.log(bbox.width + " " +  yaxisWidth);
@@ -247,7 +249,7 @@ function renderBoxChart(data) {
         // console.log( q3 + " - " +  d.q1 + " = " + (q3 - d.q1) +  " .. " + xscale((q3 - d.q1)));
         return xscale(q3) - xscale(d.q1);
     })
-    .attr('height', function (d) { return yscale(.4); });
+    .attr('height', function (d) { return yscale(0.4); });
 
   var tb = graph.selectAll("line")
     .data(bdata);
@@ -269,7 +271,7 @@ function renderBoxChart(data) {
     .append("line")
     .attr("stroke", "grey")
     .attr("stroke-dasharray", "5, 5")
-    .attr("stroke-width", .75)
+    .attr("stroke-width", 0.75)
     .attr("x1", function(d) { return xscale(0); })
     .attr("y1", function(d) { return yscale(0.5); })
     .attr("x2", function(d) { return xscale(0); })
@@ -432,11 +434,11 @@ function loadBarChart() {
     //Beginning d3 barchart part
     var margin = {top: 20, right: 20, bottom: 70, left: 40},
         width = 600 - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom;
+        height = 600 - margin.top - margin.bottom;
+
 
     // set the ranges
-    var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
-
+    var x = d3.scale.ordinal().rangeRoundBands([0, width], 0.05); 
     var y = d3.scale.linear().range([height, 0]);
 
     // define the axis
@@ -448,7 +450,11 @@ function loadBarChart() {
     var yAxis = d3.svg.axis()
                   .scale(y)
                   .orient("left")
-                  .ticks(10); // should not be hard coded
+                  .ticks(6); // should not be hard coded
+
+    var bbox = d3.select('#y-axis');
+    $("#feedback_analysis").height(bbox.height + 10);
+    
 
     // load the data
     d3.json(urlcompleted, function(error, data) {
@@ -480,10 +486,9 @@ function loadBarChart() {
                    .call(yAxis)
                    .append("text")
                    .attr("transform", "rotate(-90)")
-                   .attr("y", 5)
-                   .attr("dy", ".71em")
-                   .style("text-anchor", "end")
-                   .text("Skalenwerte");
+                   .attr("y", 3)
+                   .attr("dy", ".21em")
+                   .style("text-anchor", "end");
 
 
             // Add bar chart
@@ -596,3 +601,11 @@ function checkFeedbackAnalysis() {
 }
 
 $(document).ready(checkFeedbackAnalysis);
+$(document).ready(function(){
+    $('[data-ic-class="toggle-button-box"]').click(function(){
+    var selectedTab = $(this).index();
+    $('[data-ic-class="toggle-button-box"]').removeClass('active-box');
+    $(this).addClass('active-box');
+    $('[data-ic-class="content-box"]').removeClass('active-box');
+    $('[data-ic-class="content-box"]').eq(selectedTab).addClass('active-box');  });
+});
