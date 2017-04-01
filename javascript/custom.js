@@ -1,17 +1,16 @@
-console.log("test ob custom geht")
+// FIXME: Moodle prefers AMD Syntax over the Global Scope.
+// Reference: http://www.integralist.co.uk/posts/AMD.html
 
 var svgRoot, graph, xaxis;
 
 // get params of the url to get dataset id
-$.urlParam = function(name){
+$.urlParam = function (name) {
     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-    if (results==null){
-       return null;
+    if (results === null) {
+        return null;
     }
-    else{
-       return results[1] || 0;
-    }
-}
+    return results[1] || 0;
+};
 
 function initSVGRoot() {
     // create or clear the SVG area
@@ -53,15 +52,17 @@ function ipr(k, a) {
         q1 = d3.median(a);
     }
 
-    while (a[++i] < q1 - iqr);
-    while (a[--j] > q3 + iqr);
+    while (a[++i] < q1 - iqr) {}
+    while (a[--j] > q3 + iqr) {}
     return [i, j];
 }
 
 function extractQuestionLabels(data) {
+    // The question labels are the short names/question identifiers. This keeps the
+    // UI less cluttered.
     return data.map(function (d, i) {
         return {
-            text: d.question,
+            text: d.label,
             xVal: 0,
             yVal: i + 1
         };
@@ -76,10 +77,10 @@ function loadChartResults(renderer, loader) {
         type: "get",
         cache: false,
         dataType: "json",
-        error: function() {
+        error: function () {
             checkLiveUpdate(loader);
         },
-        success: function(data) {
+        success: function (data) {
             if (typeof data === "string") { // ensure a data array
                 data = JSON.parse(data);
             }
@@ -124,9 +125,9 @@ function renderBoxChart(data) {
 
     // process the incoming data
     for (i = 0; i < rdata.length; i++) {
-        rdata[i].answers = rdata[i].answers.map(function(d) {return (+d);});
+        rdata[i].answers = rdata[i].answers.map(function (d) { return (+d); });
 
-        sdata = rdata[i].answers.sort(function (a,b) { return (+a) - (+b); });
+        sdata = rdata[i].answers.sort(function (a, b) { return (+a) - (+b); });
 
         // console.log(sdata);
         odata = {
@@ -195,7 +196,7 @@ function renderBoxChart(data) {
    // console.log("yaxis width " + yaxisWidth);
 
 
-   $("#feedback_analysis").height(ybbox.height + 70);
+   $("#feedback_analysis").height(ybbox.height);
 
    // console.log(bbox.width + " " +  yaxisWidth);
 
@@ -235,10 +236,10 @@ function renderBoxChart(data) {
     .attr('class', function (d) {
         return "blue";
     })
-    .attr('y', function(d) {
+    .attr('y', function (d) {
         return yscale((d.y + 1) - 0.2);
     })
-    .attr('x', function(d) {
+    .attr('x', function (d) {
         // console.log(d.q1);
         return xscale(d.q1);
     })
@@ -312,12 +313,14 @@ function renderBubbleChart(data) {
         };
     });
 
-    // the y lables are the questions.
+    // the y labels are the questions.
+    // The y labels are the short names/question identifiers. This keeps the
+    // UI less cluttered
     var yLabels = realdata.map(function (d, i) {
         return {
             xVal: 0,
             yVal:i+1,
-            text: d.question
+            text: d.label
         };
     });
 
@@ -327,7 +330,7 @@ function renderBubbleChart(data) {
         var valueHash = {};
         var tmpRangeTo = parseInt(realdata[y].range_to);
 
-        if(tmpRangeTo > rangeto){
+        if (tmpRangeTo > rangeto) {
             rangeto = tmpRangeTo;
         }
 
@@ -335,7 +338,7 @@ function renderBubbleChart(data) {
             maxdomain = realdata[y].answers.length;
         }
 
-        for (j = 0; j < realdata[y].answerValues.length; j++){
+        for (j = 0; j < realdata[y].answerValues.length; j++) {
             radius.push(0);
             var radiusRating = realdata[y].answerValues[j][0];
             valueHash[radiusRating] = j;
@@ -412,11 +415,11 @@ function renderBubbleChart(data) {
                  // attach the graph data
    t.enter().append('circle');
    t.attr('class', function (d) {
-       return "blue";
-   })
-   .attr('r', function (d) {
-       return rscale(d.rVal);
-   })
+             return "blue";
+         })
+         .attr('r', function (d) {
+             return rscale(d.rVal);
+         })
          .attr('cx', function (d) {
              return xscale(d.xVal);
          })
@@ -454,7 +457,7 @@ function loadBarChart() {
                   .ticks(6); // should not be hard coded
 
     var bbox = d3.select('#y-axis');
-    $("#feedback_analysis").height(bbox.height + 10);
+    $("#feedback_analysis").height(bbox.height);
 
 
     // load the data
@@ -491,8 +494,7 @@ function loadBarChart() {
                    .attr("dy", ".21em")
                    .style("text-anchor", "end");
 
-
-            // Add bar chart
+            // draw bar chart
             svgRoot.selectAll("bar")
                    .data(data)
                    .enter()
@@ -508,6 +510,23 @@ function loadBarChart() {
                    .attr("height", function(d) {
                        return height - y(d.average_value);
                    });
+
+            // Now resize the content-box, so the chart is fully visible.
+            // The technique used here uses the bounding box of the Axis-objects.
+
+            // This works as following:
+            // Because the Y-Axis is not the full height of the chart, we need
+            // to take the height of the X-Axis also into account.
+            var yAxisBox = d3.select('#y-axis').node().getBBox();
+            var xAxisBox = d3.select('#x-axis').node().getBBox();
+
+            // the chart height is the total height of the Y-Axis as well the
+            // height of the X-Axis and its lables.
+            // Because the X-Axis and its lables are within the same SVG Group,
+            // we just need to consider the group's bounding box.
+            var chartHeight = yAxisBox.height + xAxisBox.height;
+
+            $("#feedback_analysis").height(Math.floor(chartHeight));
         }
         checkLiveUpdate(loadBarChart);
     });
@@ -577,12 +596,16 @@ function toggleBubbleChart() {
 
 function extendUI() {
     // insert our ui before the feedback_info
+    // The chart area is hidden by default
     $(".feedback_info:first-child").before('<div id="feedback_analysis" class="hidden">');
+
+    // Insert the functional buttons. These buttons are always visible.
     $("#feedback_analysis").before('<div id="feedback_vizbuttons" class="fbbuttons">');
     $("#feedback_vizbuttons")
         .append('<span id="fbanalysis_barchart" class="btn btn-outline-primary">Bar Chart</span>')
         .append('<span id="fbanalysis_bubblechart" class="btn btn-outline-primary">Bubble Chart</span>')
         .append('<span id="fbanalysis_boxchart" class="btn btn-outline-primary">Box Chart</span>')
+        // The live update should be deactivated in no chart is visible.
         .append('<span id="fbanalysis_liveupdate" class="btn btn-outline-warning">Live Update (beta)</span>');
 
     $("#fbanalysis_barchart").click(toggleBarChart);
@@ -591,6 +614,7 @@ function extendUI() {
     $("#fbanalysis_liveupdate").click(toggleLiveUpdate);
 }
 
+// this shows or hides the SVG, depending on the activation state of the control button.
 function showChart(chart) {
     if ($(chart).hasClass("btn-primary")) {
         $("#feedback_analysis").removeClass("hidden");
@@ -607,18 +631,19 @@ function checkFeedbackAnalysis() {
     var moduleName   = pathArray.pop(); // should be last element
     // console.log(secondLevelPath);
     //check analysis.php page is true
-    if (moduleName === "feedback" && functionName === "analysis.php")  {
+    if (moduleName === "feedback" && functionName === "analysis.php") {
         extendUI();
         // toggleBarChart();
     }
 }
 
 $(document).ready(checkFeedbackAnalysis);
-$(document).ready(function(){
-    $('[data-ic-class="toggle-button-box"]').click(function(){
-    var selectedTab = $(this).index();
-    $('[data-ic-class="toggle-button-box"]').removeClass('active-box');
-    $(this).addClass('active-box');
-    $('[data-ic-class="content-box"]').removeClass('active-box');
-    $('[data-ic-class="content-box"]').eq(selectedTab).addClass('active-box');  });
+$(document).ready(function () {
+    $('[data-ic-class="toggle-button-box"]').click(function () {
+        var selectedTab = $(this).index();
+        $('[data-ic-class="toggle-button-box"]').removeClass('active-box');
+        $(this).addClass('active-box');
+        $('[data-ic-class="content-box"]').removeClass('active-box');
+        $('[data-ic-class="content-box"]').eq(selectedTab).addClass('active-box');
+    });
 });
