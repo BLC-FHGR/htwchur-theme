@@ -13,14 +13,14 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro');
 
 .navbar-inverse .navbar-inner {
-  background: #00194d; 
+  background: #00194d;
 }
 
 /**
  ** basic tags
  **/
 h1, h2, h3, a {
-  color: #003399; 
+  color: #003399;
 }
 
 #page-header .logo {
@@ -245,7 +245,7 @@ button:hover, input.form-submit:hover, input[type="button"]:hover, input[type="s
     border-radius: 2px;
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
     -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
-    box-shadow:  0 1px 1px rgba(0,0,0,0.15);   
+    box-shadow:  0 1px 1px rgba(0,0,0,0.15);
 }
 /*input[name="searchwikicontent"]+input[type="submit"]:hover, select+input[type="submit"]:hover, input[type="text"]+input[type="button"]:hover, input[type="password"]+input[type="submit"]:hover, input[type="text"]+button:hover, input[type="text"]+input[type="submit"]:hover, input[name="searchwikicontent"]+input[type="submit"]:active, select+input[type="submit"]:active, input[type="text"]+input[type="button"]:active, input[type="password"]+input[type="submit"]:active, input[type="text"]+button:active, input[type="text"]+input[type="submit"]:active, input[name="searchwikicontent"]+input[type="submit"]:focus, select+input[type="submit"]:focus, input[type="text"]+input[type="button"]:focus, input[type="password"]+input[type="submit"]:focus, input[type="text"]+button:focus, input[type="text"]+input[type="submit"]:focus, input[name="searchwikicontent"]+input[type="submit"]:visited, select+input[type="submit"]:visited, input[type="text"]+input[type="button"]:visited, input[type="password"]+input[type="submit"]:visited, input[type="text"]+button:visited, input[type="text"]+input[type="submit"]:visited{
     margin: 0 0 10px 5px;
@@ -262,16 +262,16 @@ button:hover, input.form-submit:hover, input[type="button"]:hover, input[type="s
     margin-right: 10px;
 }
 /* iCal Language specifications */
-.ical-link:lang(de):after { 
+.ical-link:lang(de):after {
  content: ': Kalender importieren'
 }
-.ical-link:lang(en):after { 
+.ical-link:lang(en):after {
 content: ': Import calendar'
 }
-.ical-link:lang(fr):after { 
+.ical-link:lang(fr):after {
 content: ': importer calendrier'
 }
-.ical-link:lang(it):after { 
+.ical-link:lang(it):after {
 content: ': importare calendario'
 }
 
@@ -381,6 +381,11 @@ th {
 }
 /*barchart_test*/
 
+#feedback_analysis {
+    padding: 15px;
+    box-sizing: content-box;
+}
+
 div.bar {
 
         display: inline-block;
@@ -430,7 +435,7 @@ div.bar {
 .toggle-container-box {
   width: 100%;
   margin: 0px auto;
- 
+
 }
 .toggle-container-box:after {
   content: '';
@@ -519,7 +524,7 @@ font-size:12px;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
- /* * * * * * * * * * *  smartphones, iPhone, portrait 480x320 phones * * * * * * * * * * */ 
+ /* * * * * * * * * * *  smartphones, iPhone, portrait 480x320 phones * * * * * * * * * * */
 
 
 
@@ -533,7 +538,7 @@ font-size:12px;
     font-size: 1.4em;
     padding: 0 10px;
     }
-    
+
     input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link, input.form-submit:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input.form-submit:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, .ical-link:hover{
         min-width: 100%;
         max-width: 280px;
@@ -561,24 +566,24 @@ font-size:12px;
     .breadcrumb-button{
         float:none;
     }
-    
+
     /* fix mobile navigation: input field wiki*/
     select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{
         width: 100%;
     }
-    
-    
-    
+
+
+
     /* fix wrong navbar inverse color*/
     .navbar-inverse .nav-collapse .nav>li>a:hover, .navbar-inverse .nav-collapse .nav>li>a:focus, .navbar-inverse .nav-collapse .dropdown-menu a:hover, .navbar-inverse .nav-collapse .dropdown-menu a:focus{
         background-color: #121953;
     }
-    
-    
+
+
     /* block tap fixes*/
     .block_settings .block_tree .tree_item, .block_navigation .block_tree .tree_item{
         margin:10px 0;
-    } 
+    }
     /* fix: mobile: editor width */
     .form-item, .mform .fitem, .form-item, .mform .fitem_ftext input[size]{
         min-width: 280px;
@@ -602,7 +607,7 @@ font-size:12px;
         bottom:0!important;
     }
     .moodle-dialogue-base .moodle-dialogue-fullscreen .moodle-dialogue-content{
-     bottom:0px!important;   
+     bottom:0px!important;
     }
     /* fix fieldset */
     #page-enrol-users #filterform .fitem{
@@ -643,7 +648,7 @@ font-size:12px;
 
 
 @media (min-width:481px)and (max-device-width:640px) {
-    
+
     /* fix: overlapping frame size on mobile / horizontal scroll*/
     #page-header .logo{
         margin:0px;
@@ -666,7 +671,7 @@ font-size:12px;
         min-width: 96%;
     }
     #page-header .logo{
-        margin-right: 10px; 
+        margin-right: 10px;
     }
     .breadcrumb-button{
         float:none;
@@ -688,13 +693,13 @@ font-size:12px;
     select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{
         width: 100%;
     }
-    
-    
+
+
     /* fix wrong navbar inverse color*/
     .navbar-inverse .nav-collapse .nav>li>a:hover, .navbar-inverse .nav-collapse .nav>li>a:focus, .navbar-inverse .nav-collapse .dropdown-menu a:hover, .navbar-inverse .nav-collapse .dropdown-menu a:focus{
         background-color: #121953;
     }
-    
+
 }
 
  /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -704,7 +709,7 @@ font-size:12px;
 
 
 
-@media (min-width:641px) and (max-device-width : 960px)  { 
+@media (min-width:641px) and (max-device-width : 960px)  {
     /* fix: overlapping frame size on mobile / horizontal scroll*/
     #page-header .logo{
         margin:0px;
@@ -728,7 +733,7 @@ font-size:12px;
         min-width: 96%;
     }
     #page-header .logo{
-        margin-right: 10px; 
+        margin-right: 10px;
     }
     /* tablet menu fix floats and frame width*/
     .nav-collapse .nav>li{
@@ -747,16 +752,16 @@ font-size:12px;
     .navbar-inverse .nav-collapse .nav>li>a:hover, .navbar-inverse .nav-collapse .nav>li>a:focus, .navbar-inverse .nav-collapse .dropdown-menu a:hover, .navbar-inverse .nav-collapse .dropdown-menu a:focus{
         background-color: #121953;
     }
-    
-    
-    
+
+
+
 /* block tap fixes*/
     .block_settings .block_tree .tree_item, .block_navigation .block_tree .tree_item{
         margin:10px 0;
     }
 }
- /* tablet, landscape iPad, lo-res laptops ands desktops */ 
-@media (min-width:961px) { 
+ /* tablet, landscape iPad, lo-res laptops ands desktops */
+@media (min-width:961px) {
     /* fix: overlapping frame size on mobile / horizontal scroll*/
     #page-header .logo{
         margin:0px;
@@ -764,13 +769,13 @@ font-size:12px;
     }
 }
  /* big landscape tablets, laptops, and desktops */
-@media (min-width:1025px) { 
+@media (min-width:1025px) {
     input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link{
         width: auto;
     }
 }
  /* hi-res laptops and desktops */
-@media (min-width:1281px) { 
+@media (min-width:1281px) {
     input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link{
         width: auto;
     }
@@ -790,7 +795,7 @@ font-size:12px;
   margin: 0.25in 0.22in 0.25in 0.22in;
 }
 
-@media print { 
+@media print {
   .analysis, tbody{
     page-break-inside: avoid !important;
     width: 100%;
@@ -803,12 +808,12 @@ font-size:12px;
   }
 
  /* HTW Print Styles */
-  aside #block-region-side-post, #dock, #page-navbar, #block-region-side-pre, #inst4, .navbar .navbar-inner, .logo, .nav-tabs a, aside#block-region-side-post{ 
-    display: none !important; 
+  aside #block-region-side-post, #dock, #page-navbar, #block-region-side-pre, #inst4, .navbar .navbar-inner, .logo, .nav-tabs a, aside#block-region-side-post{
+    display: none !important;
     width:0px!important;
     -moz-appearance:none;
     -webkit-appearance: none;
-  } 
+  }
 
   #region-main, .page-context-header, .page-header-headings{
     left:0!important;
@@ -820,8 +825,8 @@ font-size:12px;
    margin-left: -16px;
    }
 
-  .analysis th{      
-       white-space: normal !important;    
+  .analysis th{
+       white-space: normal !important;
   }
 
   #page-header:before{
