@@ -38,6 +38,7 @@ function renderAxis(labels, d3Item) {
                  });
 }
 
+// returns the endpoints of the whiskers
 function ipr(k, a) {
     var q1  = d3.quantile(a, 0.25),
         q3  = d3.quantile(a, 0.75),
@@ -438,7 +439,7 @@ function loadBarChart() {
 
 
     // set the ranges
-    var x = d3.scale.ordinal().rangeRoundBands([0, width], 0.05); 
+    var x = d3.scale.ordinal().rangeRoundBands([0, width], 0.05);
     var y = d3.scale.linear().range([height, 0]);
 
     // define the axis
@@ -454,7 +455,7 @@ function loadBarChart() {
 
     var bbox = d3.select('#y-axis');
     $("#feedback_analysis").height(bbox.height + 10);
-    
+
 
     // load the data
     d3.json(urlcompleted, function(error, data) {
@@ -554,6 +555,7 @@ function toggleBoxChart() {
     $("#fbanalysis_boxchart").toggleClass("btn-outline-primary");
 
     clearSelection("#fbanalysis_boxchart");
+    showChart("#fbanalysis_boxchart");
     loadBoxChart();
 }
 
@@ -561,6 +563,7 @@ function toggleBarChart() {
     $("#fbanalysis_barchart").toggleClass("btn-primary");
     $("#fbanalysis_barchart").toggleClass("btn-outline-primary");
     clearSelection("#fbanalysis_barchart");
+    showChart("#fbanalysis_barchart");
     loadBarChart();
 }
 
@@ -568,12 +571,13 @@ function toggleBubbleChart() {
     $("#fbanalysis_bubblechart").toggleClass("btn-primary");
     $("#fbanalysis_bubblechart").toggleClass("btn-outline-primary");
     clearSelection("#fbanalysis_bubblechart");
+    showChart("#fbanalysis_bubblechart");
     loadBubbleChart();
 }
 
 function extendUI() {
     // insert our ui before the feedback_info
-    $(".feedback_info:first-child").before('<div id="feedback_analysis">');
+    $(".feedback_info:first-child").before('<div id="feedback_analysis" class="hidden">');
     $("#feedback_analysis").before('<div id="feedback_vizbuttons" class="fbbuttons">');
     $("#feedback_vizbuttons")
         .append('<span id="fbanalysis_barchart" class="btn btn-outline-primary">Bar Chart</span>')
@@ -587,6 +591,15 @@ function extendUI() {
     $("#fbanalysis_liveupdate").click(toggleLiveUpdate);
 }
 
+function showChart(chart) {
+    if ($(chart).hasClass("btn-primary")) {
+        $("#feedback_analysis").removeClass("hidden");
+    }
+    else {
+        $("#feedback_analysis").addClass("hidden");
+    }
+}
+
 function checkFeedbackAnalysis() {
     var pathArray = window.location.pathname.split("/");
 
@@ -596,7 +609,7 @@ function checkFeedbackAnalysis() {
     //check analysis.php page is true
     if (moduleName === "feedback" && functionName === "analysis.php")  {
         extendUI();
-        toggleBarChart();
+        // toggleBarChart();
     }
 }
 
