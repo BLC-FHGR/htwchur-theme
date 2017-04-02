@@ -61,6 +61,11 @@ function extractQuestionLabels(data) {
     // The question labels are the short names/question identifiers. This keeps the
     // UI less cluttered.
     return data.map(function (d, i) {
+        // in the case a question has no label set, we use the question.
+        if (!d.label || !d.label.length) {
+            d.label = d.question;
+        }
+
         return {
             text: d.label,
             xVal: 0,
@@ -313,16 +318,8 @@ function renderBubbleChart(data) {
         };
     });
 
-    // the y labels are the questions.
-    // The y labels are the short names/question identifiers. This keeps the
-    // UI less cluttered
-    var yLabels = realdata.map(function (d, i) {
-        return {
-            xVal: 0,
-            yVal:i+1,
-            text: d.label
-        };
-    });
+    // the y labels are the questions. These can be pretty long
+    var yLabels = extractQuestionLabels(realdata);
 
     // analyse the responses
     for (y = 0; y < realdata.length; y++) {
