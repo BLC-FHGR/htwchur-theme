@@ -19,7 +19,6 @@ function initSVGRoot() {
                     .append("svg")
                     .attr("width", "100%")
                     .attr("height", "100%");
-
     }
     else {
         // clear the SVG area
@@ -163,7 +162,6 @@ function renderBoxChart(data) {
     absMax = d3.max(edata.map(function (d) { return d[1]; }));
 
     // the y lables are the questions.
-
     var bbox = {
         width: Math.floor($('#feedback_analysis').width()),
         height: Math.floor($('#feedback_analysis').height())
@@ -201,7 +199,7 @@ function renderBoxChart(data) {
    // console.log("yaxis width " + yaxisWidth);
 
 
-   $("#feedback_analysis").height(ybbox.height);
+   $("#feedback_analysis").height(Math.floor(ybbox.height));
 
    // console.log(bbox.width + " " +  yaxisWidth);
 
@@ -386,10 +384,11 @@ function renderBubbleChart(data) {
             })
         .attr('dy', '0.3ex');
     }
+
     var bbox = d3.select('#y-axis').node().getBBox();
     var yaxisWidth = bbox.width;
 
-    $("#feedback_analysis").height(bbox.height + 50);
+    $("#feedback_analysis").height(Math.floor(bbox.height + 50));
 
     // add the x axis
     if (!$("#x-axis").length) {
@@ -397,10 +396,10 @@ function renderBubbleChart(data) {
                    svgRoot.append("g")
                          .attr('id', "x-axis")
                          .attr("transform","translate( " + (yaxisWidth + 10) + ",15)"))
-           .attr('text-anchor', 'middle')
-           .attr('x', function (d, i) {
-               return xscale(d.xVal);
-           });
+            .attr('text-anchor', 'middle')
+            .attr('x', function (d, i) {
+                return xscale(d.xVal);
+            });
 
            graph = svgRoot.append("g")
                           .attr("id", "datamatrix")
@@ -454,7 +453,7 @@ function loadBarChart() {
                   .ticks(6); // should not be hard coded
 
     var bbox = d3.select('#y-axis');
-    $("#feedback_analysis").height(bbox.height);
+    $("#feedback_analysis").height(Math.floor(bbox.height));
 
 
     // load the data
