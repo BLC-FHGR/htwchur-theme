@@ -1,3 +1,5 @@
+/* global d3*/
+
 // FIXME: Moodle prefers AMD Syntax over the Global Scope.
 // Reference: http://www.integralist.co.uk/posts/AMD.html
 
@@ -5,8 +7,9 @@ var svgRoot, graph, xaxis;
 
 // get params of the url to get dataset id
 $.urlParam = function (name) {
-    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-    if (results === null) {
+    var results = new RegExp("[\?&]" + name + "=([^&#]*)").exec(window.location.href);
+
+    if (null === results) {
         return null;
     }
     return results[1] || 0;
@@ -27,22 +30,22 @@ function initSVGRoot() {
 }
 
 function renderAxis(labels, d3Item) {
-    return d3Item.selectAll('text')
-                 .data(labels)
-                 .enter()
-                 .append("text")
-                 .text(function axisLabel(labelItem) {
-                     return labelItem.text;
-                 });
+    return d3Item.selectAll("text")
+        .data(labels)
+        .enter()
+        .append("text")
+        .text(function axisLabel(labelItem) {
+            return labelItem.text;
+        });
 }
 
 // returns the endpoints of the whiskers
 function ipr(k, a) {
     var q1  = d3.quantile(a, 0.25),
-        q3  = d3.quantile(a, 0.75),
-        iqr = (q3 - q1) * k,
-        i   = -1,
-        j   = a.length;
+            q3  = d3.quantile(a, 0.75),
+            iqr = (q3 - q1) * k,
+            i   = 0,
+            j   = a.length - 1;
 
     if (isNaN(q3)) {
         q3 = d3.median(a);
@@ -51,8 +54,12 @@ function ipr(k, a) {
         q1 = d3.median(a);
     }
 
-    while (a[++i] < q1 - iqr) {}
-    while (a[--j] > q3 + iqr) {}
+    while (a[i] < q1 - iqr) {
+        i += 1;
+    }
+    while (a[j] > q3 + iqr) {
+        j -= 1;
+    }
     return [i, j];
 }
 
@@ -74,7 +81,7 @@ function extractQuestionLabels(data) {
 }
 
 function loadChartResults(renderer, loader) {
-    var baseurl = "/local/powertla/rest.php/content/survey/results/" + $.urlParam('id');
+    var baseurl = "/local/powertla/rest.php/content/survey/results/" + $.urlParam("id");
 
     $.ajax({
         url: baseurl,
@@ -85,7 +92,7 @@ function loadChartResults(renderer, loader) {
             checkLiveUpdate(loader);
         },
         success: function (data) {
-            if (typeof data === "string") { // ensure a data array
+            if ("string" === typeof data) { // ensure a data array
                 data = JSON.parse(data);
             }
             renderer(data);
@@ -119,19 +126,19 @@ function renderBoxChart(data) {
 
     for (i = 0; i < data.length; i++) {
         switch (data[i].typ) {
-            case "numeric":
-                rdata.push(data[i]);
-                break;
-            default:
-                break;
+                case "numeric":
+                    rdata.push(data[i]);
+                    break;
+                default:
+                    break;
         }
     }
 
     // process the incoming data
     for (i = 0; i < rdata.length; i++) {
-        rdata[i].answers = rdata[i].answers.map(function (d) { return (+d); });
+        rdata[i].answers = rdata[i].answers.map(function (d) { return +d; });
 
-        sdata = rdata[i].answers.sort(function (a, b) { return (+a) - (+b); });
+        sdata = rdata[i].answers.sort(function (a, b) { return +a - +b; });
 
         // console.log(sdata);
         odata = {
@@ -163,8 +170,8 @@ function renderBoxChart(data) {
 
     // the y lables are the questions.
     var bbox = {
-        width: Math.floor($('#feedback_analysis').width()),
-        height: Math.floor($('#feedback_analysis').height())
+        width: Math.floor($("#feedback_analysis").width()),
+        height: Math.floor($("#feedback_analysis").height())
     };
 
     // reverse the y axis, so 0 is on top
@@ -176,113 +183,116 @@ function renderBoxChart(data) {
     var xLabels = [absMin, 0, absMax];
 
    // add the y axis labels
-   if (!$("#y-axis").length) {
-       svgRoot.append("g")
-              .attr('id', "y-axis")
-              .attr("transform","translate(20," + 10 + ")")
-              .selectAll('text')
-              .data(yLabels)
-              .enter()
-              .append("text")
-              .text(function axisLabel(labelItem) {
-                  return labelItem.text;
-              })
-              .attr('text-anchor', 'right')
-              .attr('y', function (d, i) {
-                  return yscale(d.yVal);
-              })
-              .attr('dy', '0.3ex');
-   }
+    if (!$("#y-axis").length) {
+        svgRoot.append("g")
+            .attr("id", "y-axis")
+            .attr("transform","translate(20," + 10 + ")")
+            .selectAll("text")
+            .data(yLabels)
+            .enter()
+            .append("text")
+            .text(function axisLabel(labelItem) {
+                return labelItem.text;
+            })
+            .attr("text-anchor", "right")
+            .attr("y", function (d) {
+                return yscale(d.yVal);
+            })
+            .attr("dy", "0.3ex");
+    }
 
-   var ybbox = d3.select('#y-axis').node().getBBox();
-   var yaxisWidth = ybbox.width + 25;
+    var ybbox = d3.select("#y-axis").node().getBBox();
+    var yaxisWidth = ybbox.width + 25;
    // console.log("yaxis width " + yaxisWidth);
 
 
-   $("#feedback_analysis").height(Math.floor(ybbox.height));
+    $("#feedback_analysis").height(Math.floor(ybbox.height));
 
    // console.log(bbox.width + " " +  yaxisWidth);
 
-   var xscale = d3.scale.linear()
-                  .domain([absMin - 5, (+absMax) + 5])
-                  .range([0, (bbox.width - Math.floor(yaxisWidth))]);
+    var xscale = d3.scale.linear()
+                  .domain([absMin - 5, +absMax + 5])
+                  .range([0, bbox.width - Math.floor(yaxisWidth)]);
 
-  if (!$("#x-axis").length) {
-      xaxis = svgRoot.append("g")
-             .attr('id', "x-axis")
+    if (!$("#x-axis").length) {
+        xaxis = svgRoot.append("g")
+             .attr("id", "x-axis")
              .attr("transform","translate( " + yaxisWidth + ",10)");
-  }
+    }
 
-  var tx = xaxis.selectAll('text')
+    var tx = xaxis.selectAll("text")
        .data(xLabels);
-  tx.enter()
-       .append("text")
-       .attr('text-anchor', 'middle')
-       .attr('x', function (d) {
-          return xscale(d);
-       })
-       .text(function(d) { return d; });
 
-  tx.exit().remove();
+    tx.enter()
+        .append("text")
+        .attr("text-anchor", "middle")
+        .attr("x", function (d) {
+            return xscale(d);
+        })
+        .text(function(d) { return d; });
 
-  if (!$("#boxdata").length) {
-      graph = svgRoot.append("g")
-                      .attr('id', "boxdata")
+    tx.exit().remove();
+
+    if (!$("#boxdata").length) {
+        graph = svgRoot.append("g")
+                      .attr("id", "boxdata")
                       .attr("transform","translate(" + yaxisWidth + ",10)");
-  }
+    }
 
-  graph.selectAll('rect')
-    .data(bdata)
-    .enter()
-    .append("rect")
-    .attr("r", 2)
-    .attr('class', function (d) {
-        return "blue";
-    })
-    .attr('y', function (d) {
-        return yscale((d.y + 1) - 0.2);
-    })
-    .attr('x', function (d) {
+    graph.selectAll("rect")
+        .data(bdata)
+        .enter()
+        .append("rect")
+        .attr("r", 2)
+        .attr("class", function () {
+            return "blue";
+        })
+        .attr("y", function (d) {
+            return yscale(d.y + 1 - 0.2);
+        })
+        .attr("x", function (d) {
         // console.log(d.q1);
-        return xscale(d.q1);
-    })
-    .attr('width', function (d) {
-        var q3 = d.q3;
-        if (isNaN(q3)) {
-            q3 = d.median;
-        }
-        // console.log( q3 + " - " +  d.q1 + " = " + (q3 - d.q1) +  " .. " + xscale((q3 - d.q1)));
-        return xscale(q3) - xscale(d.q1);
-    })
-    .attr('height', function (d) { return yscale(0.4); });
+            return xscale(d.q1);
+        })
+        .attr("width", function (d) {
+            var q3 = d.q3;
 
-  var tb = graph.selectAll("line")
+            if (isNaN(q3)) {
+                q3 = d.median;
+            }
+        // console.log( q3 + " - " +  d.q1 + " = " + (q3 - d.q1) +  " .. " + xscale((q3 - d.q1)));
+            return xscale(q3) - xscale(d.q1);
+        })
+        .attr("height", function () { return yscale(0.4); });
+
+    var tb = graph.selectAll("line")
     .data(bdata);
 
-  tb.enter()
-    .append("line")
-    .attr("stroke", "black")
-    .attr("stroke-width", 1)
-    .attr("x1", function(d) { return xscale(parseInt(d.data[d.ipr[0]])); })
-    .attr("y1", function(d) { return yscale(d.y + 1); })
-    .attr("x2", function(d) { return xscale(parseInt(d.data[d.ipr[1]])); })
-    .attr("y2", function(d) { return yscale(d.y + 1); });
+    tb.enter()
+        .append("line")
+        .attr("stroke", "black")
+        .attr("stroke-width", 1)
+        .attr("x1", function(d) { return xscale(parseInt(d.data[d.ipr[0]])); })
+        .attr("y1", function(d) { return yscale(d.y + 1); })
+        .attr("x2", function(d) { return xscale(parseInt(d.data[d.ipr[1]])); })
+        .attr("y2", function(d) { return yscale(d.y + 1); });
 
-  tb.exit().remove();
+    tb.exit().remove();
 
-  var t = xaxis.selectAll('line')
+    var t = xaxis.selectAll("line")
     .data(xLabels);
-    t.enter()
-    .append("line")
-    .attr("stroke", "grey")
-    .attr("stroke-dasharray", "5, 5")
-    .attr("stroke-width", 0.75)
-    .attr("x1", function(d) { return xscale(0); })
-    .attr("y1", function(d) { return yscale(0.5); })
-    .attr("x2", function(d) { return xscale(0); })
-    .attr("y2", function(d) { return yscale(rdata.length + 1) + 20; });
 
-  t.exit().remove();
+    t.enter()
+        .append("line")
+        .attr("stroke", "grey")
+        .attr("stroke-dasharray", "5, 5")
+        .attr("stroke-width", 0.75)
+        .attr("x1", function(d) { return xscale(0); })
+        .attr("y1", function(d) { return yscale(0.5); })
+        .attr("x2", function(d) { return xscale(0); })
+        .attr("y2", function(d) { return yscale(rdata.length + 1) + 20; });
+
+    t.exit().remove();
 }
 
 function renderBubbleChart(data) {
@@ -295,12 +305,12 @@ function renderBubbleChart(data) {
     // extract the questions from the returned data
     for (i = 0; i < data.length; i++) {
         switch (data[i].typ) {
-            case 'multichoicerated':
-            case 'multichoice':
-                realdata.push(data[i]);
-                break;
-            default:
-                break;
+                case "multichoicerated":
+                case "multichoice":
+                    realdata.push(data[i]);
+                    break;
+                default:
+                    break;
         }
     }
 
@@ -312,7 +322,7 @@ function renderBubbleChart(data) {
         return {
             xVal: i + 1,
             yVal: 0,
-            text: Array.isArray(d)? d[1] : d
+            text: Array.isArray(d) ? d[1] : d
         };
     });
 
@@ -336,16 +346,19 @@ function renderBubbleChart(data) {
         for (j = 0; j < realdata[y].answerValues.length; j++) {
             radius.push(0);
             var radiusRating = realdata[y].answerValues[j][0];
+
             valueHash[radiusRating] = j;
         }
 
         for (i = 0; i < realdata[y].answers.length; i++) {
             var radiusValue = parseInt(realdata[y].answers[i]);
-            if (radiusValue > 0 || radiusValue === 0) {
-                var radiusIndex = valueHash[radiusValue];
-                console.log("val = " + radiusValue + "; id = " + radiusIndex + "; orig = " + realdata[y].answers[i]);
 
-                radius[radiusIndex]++;
+            if (0 < radiusValue || 0 === radiusValue) {
+                var radiusIndex = valueHash[radiusValue];
+
+                //console.log("val = " + radiusValue + "; id = " + radiusIndex + "; orig = " + realdata[y].answers[i]);
+
+                radius[radiusIndex] += 1;
             }
         }
 
@@ -364,8 +377,8 @@ function renderBubbleChart(data) {
                    .range([0, 30]);
 
     var xscale = d3.scale.linear()
-                   .domain([0, rangeto+1])
-                   .range([0, 75 * (rangeto+1)]);
+                   .domain([0, rangeto + 1])
+                   .range([0, 75 * (rangeto + 1)]);
 
     // reverse the y axis, so 0 is in the upper corner
     var yscale = d3.scale.linear()
@@ -376,16 +389,16 @@ function renderBubbleChart(data) {
     if (!$("#y-axis").length) {
         renderAxis(yLabels,
                    svgRoot.append("g")
-                          .attr('id', "y-axis")
-                          .attr("transform","translate(20," + 10 + ")"))
-            .attr('text-anchor', 'right')
-            .attr('y', function (d, i) {
+                       .attr("id", "y-axis")
+                       .attr("transform","translate(20," + 10 + ")"))
+            .attr("text-anchor", "right")
+            .attr("y", function (d) {
                 return yscale(d.yVal);
             })
-        .attr('dy', '0.3ex');
+            .attr("dy", "0.3ex");
     }
 
-    var bbox = d3.select('#y-axis').node().getBBox();
+    var bbox = d3.select("#y-axis").node().getBBox();
     var yaxisWidth = bbox.width;
 
     $("#feedback_analysis").height(Math.floor(bbox.height + 50));
@@ -394,47 +407,48 @@ function renderBubbleChart(data) {
     if (!$("#x-axis").length) {
         renderAxis(xLabels,
                    svgRoot.append("g")
-                         .attr('id', "x-axis")
-                         .attr("transform","translate( " + (yaxisWidth + 10) + ",15)"))
-            .attr('text-anchor', 'middle')
-            .attr('x', function (d, i) {
+                       .attr("id", "x-axis")
+                       .attr("transform","translate( " + (yaxisWidth + 10) + ",15)"))
+            .attr("text-anchor", "middle")
+            .attr("x", function (d) {
                 return xscale(d.xVal);
             });
 
-           graph = svgRoot.append("g")
+        graph = svgRoot.append("g")
                           .attr("id", "datamatrix")
                           .attr("transform","translate(" + (yaxisWidth + 10) + "," + 10 + ")");
-   }
+    }
 
-   var t = graph.selectAll('circle')
+    var t = graph.selectAll("circle")
                 .data(graphics);
                  // attach the graph data
-   t.enter().append('circle');
-   t.attr('class', function (d) {
-             return "blue";
-         })
-         .attr('r', function (d) {
-             return rscale(d.rVal);
-         })
-         .attr('cx', function (d) {
-             return xscale(d.xVal);
-         })
-         .attr('cy', function (d) {
-             return yscale(d.yVal);
-         });
+
+    t.enter().append("circle");
+    t.attr("class", function (d) {
+        return "blue";
+    })
+        .attr("r", function (d) {
+            return rscale(d.rVal);
+        })
+        .attr("cx", function (d) {
+            return xscale(d.xVal);
+        })
+        .attr("cy", function (d) {
+            return yscale(d.yVal);
+        });
 
     t.exit().remove();
 }
 
 function loadBarChart() {
-    var urlcompleted = "/local/powertla/rest.php/content/survey/analysis/" + $.urlParam('id');
+    var urlcompleted = "/local/powertla/rest.php/content/survey/analysis/" + $.urlParam("id");
 
     // Split url to check path
 
     //Beginning d3 barchart part
     var margin = {top: 20, right: 20, bottom: 70, left: 40},
-        width = 600 - margin.left - margin.right,
-        height = 600 - margin.top - margin.bottom;
+            width = 600 - margin.left - margin.right,
+            height = 600 - margin.top - margin.bottom;
 
 
     // set the ranges
@@ -444,7 +458,7 @@ function loadBarChart() {
     // define the axis
     var xAxis = d3.svg.axis()
                   .scale(x)
-                  .orient("bottom")
+                  .orient("bottom");
 
 
     var yAxis = d3.svg.axis()
@@ -452,7 +466,8 @@ function loadBarChart() {
                   .orient("left")
                   .ticks(6); // should not be hard coded
 
-    var bbox = d3.select('#y-axis');
+    var bbox = d3.select("#y-axis");
+
     $("#feedback_analysis").height(Math.floor(bbox.height));
 
 
@@ -470,42 +485,42 @@ function loadBarChart() {
 
             // add axis
             svgRoot.append("g")
-                   .attr("id","x-axis")
-                   .attr("class", "x axis")
-                   .attr("transform", "translate(0," + height + ")")
-                   .call(xAxis)
-                   .selectAll("text")
-                   .style("text-anchor", "end")
-                   .attr("dx", "-.8em")
-                   .attr("dy", "-.55em")
-                   .attr("transform", "rotate(-45)" );
+                .attr("id","x-axis")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+                .selectAll("text")
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", "-.55em")
+                .attr("transform", "rotate(-45)" );
 
             svgRoot.append("g")
-                   .attr("id","y-axis")
-                   .attr("class", "y axis")
-                   .call(yAxis)
-                   .append("text")
-                   .attr("transform", "rotate(-90)")
-                   .attr("y", 3)
-                   .attr("dy", ".21em")
-                   .style("text-anchor", "end");
+                .attr("id","y-axis")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 3)
+                .attr("dy", ".21em")
+                .style("text-anchor", "end");
 
             // draw bar chart
             svgRoot.selectAll("bar")
-                   .data(data)
-                   .enter()
-                   .append("rect")
-                   .attr("class", "bar")
-                   .attr("x", function(d) {
-                       return x(d.label);
-                   })
-                   .attr("width", x.rangeBand())
-                   .attr("y", function(d) {
-                       return y(d.average_value);
-                   })
-                   .attr("height", function(d) {
-                       return height - y(d.average_value);
-                   });
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("class", "bar")
+                .attr("x", function(d) {
+                    return x(d.label);
+                })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) {
+                    return y(d.average_value);
+                })
+                .attr("height", function(d) {
+                    return height - y(d.average_value);
+                });
 
             // Now resize the content-box, so the chart is fully visible.
             // The technique used here uses the bounding box of the Axis-objects.
@@ -513,8 +528,8 @@ function loadBarChart() {
             // This works as following:
             // Because the Y-Axis is not the full height of the chart, we need
             // to take the height of the X-Axis also into account.
-            var yAxisBox = d3.select('#y-axis').node().getBBox();
-            var xAxisBox = d3.select('#x-axis').node().getBBox();
+            var yAxisBox = d3.select("#y-axis").node().getBBox();
+            var xAxisBox = d3.select("#x-axis").node().getBBox();
 
             // the chart height is the total height of the Y-Axis as well the
             // height of the X-Axis and its lables.
@@ -550,15 +565,15 @@ function toggleLiveUpdate() {
 }
 
 function clearSelection(tname) {
-    if (tname !== "#fbanalysis_boxchart") {
+    if ("#fbanalysis_boxchart" !== tname) {
         $("#fbanalysis_boxchart").removeClass("btn-primary");
         $("#fbanalysis_boxchart").addClass("btn-outline-primary");
     }
-    if (tname !== "#fbanalysis_barchart") {
+    if ("#fbanalysis_barchart" !== tname) {
         $("#fbanalysis_barchart").removeClass("btn-primary");
         $("#fbanalysis_barchart").addClass("btn-outline-primary");
     }
-    if (tname !== "#fbanalysis_bubblechart") {
+    if ("#fbanalysis_bubblechart" !== tname) {
         $("#fbanalysis_bubblechart").removeClass("btn-primary");
         $("#fbanalysis_bubblechart").addClass("btn-outline-primary");
     }
@@ -593,16 +608,16 @@ function toggleBubbleChart() {
 function extendUI() {
     // insert our ui before the feedback_info
     // The chart area is hidden by default
-    $(".feedback_info:first-child").before('<div id="feedback_analysis" class="hidden">');
+    $(".feedback_info:first-child").before("<div id=\"feedback_analysis\" class=\"hidden\">");
 
     // Insert the functional buttons. These buttons are always visible.
-    $("#feedback_analysis").before('<div id="feedback_vizbuttons" class="fbbuttons">');
+    $("#feedback_analysis").before("<div id=\"feedback_vizbuttons\" class=\"fbbuttons\">");
     $("#feedback_vizbuttons")
-        .append('<span id="fbanalysis_barchart" class="btn btn-outline-primary">Bar Chart</span>')
-        .append('<span id="fbanalysis_bubblechart" class="btn btn-outline-primary">Bubble Chart</span>')
-        .append('<span id="fbanalysis_boxchart" class="btn btn-outline-primary">Box Chart</span>')
+        .append("<span id=\"fbanalysis_barchart\" class=\"btn btn-outline-primary\">Bar Chart</span>")
+        .append("<span id=\"fbanalysis_bubblechart\" class=\"btn btn-outline-primary\">Bubble Chart</span>")
+        .append("<span id=\"fbanalysis_boxchart\" class=\"btn btn-outline-primary\">Box Chart</span>")
         // The live update should be deactivated in no chart is visible.
-        .append('<span id="fbanalysis_liveupdate" class="btn btn-outline-warning">Live Update (beta)</span>');
+        .append("<span id=\"fbanalysis_liveupdate\" class=\"btn btn-outline-warning\">Live Update (beta)</span>");
 
     $("#fbanalysis_barchart").click(toggleBarChart);
     $("#fbanalysis_boxchart").click(toggleBoxChart);
@@ -627,7 +642,8 @@ function checkFeedbackAnalysis() {
     var moduleName   = pathArray.pop(); // should be last element
     // console.log(secondLevelPath);
     //check analysis.php page is true
-    if (moduleName === "feedback" && functionName === "analysis.php") {
+
+    if ("feedback" === moduleName && "analysis.php" === functionName) {
         extendUI();
         // toggleBarChart();
     }
@@ -635,11 +651,12 @@ function checkFeedbackAnalysis() {
 
 $(document).ready(checkFeedbackAnalysis);
 $(document).ready(function () {
-    $('[data-ic-class="toggle-button-box"]').click(function () {
+    $("[data-ic-class=\"toggle-button-box\"]").click(function () {
         var selectedTab = $(this).index();
-        $('[data-ic-class="toggle-button-box"]').removeClass('active-box');
-        $(this).addClass('active-box');
-        $('[data-ic-class="content-box"]').removeClass('active-box');
-        $('[data-ic-class="content-box"]').eq(selectedTab).addClass('active-box');
+
+        $("[data-ic-class=\"toggle-button-box\"]").removeClass("active-box");
+        $(this).addClass("active-box");
+        $("[data-ic-class=\"content-box\"]").removeClass("active-box");
+        $("[data-ic-class=\"content-box\"]").eq(selectedTab).addClass("active-box");
     });
 });
