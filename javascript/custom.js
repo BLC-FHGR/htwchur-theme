@@ -9,7 +9,7 @@ var svgRoot, graph, xaxis;
 $.urlParam = function (name) {
     var results = new RegExp("[\?&]" + name + "=([^&#]*)").exec(window.location.href);
 
-    if (null === results) {
+    if (results === null) {
         return null;
     }
     return results[1] || 0;
@@ -92,7 +92,7 @@ function loadChartResults(renderer, loader) {
             checkLiveUpdate(loader);
         },
         success: function (data) {
-            if ("string" === typeof data) { // ensure a data array
+            if (typeof data === "string") { // ensure a data array
                 data = JSON.parse(data);
             }
             renderer(data);
@@ -353,7 +353,7 @@ function renderBubbleChart(data) {
         for (i = 0; i < realdata[y].answers.length; i++) {
             var radiusValue = parseInt(realdata[y].answers[i]);
 
-            if (0 < radiusValue || 0 === radiusValue) {
+            if (radiusValue > 0 || radiusValue === 0) {
                 var radiusIndex = valueHash[radiusValue];
 
                 //console.log("val = " + radiusValue + "; id = " + radiusIndex + "; orig = " + realdata[y].answers[i]);
@@ -565,15 +565,15 @@ function toggleLiveUpdate() {
 }
 
 function clearSelection(tname) {
-    if ("#fbanalysis_boxchart" !== tname) {
+    if (tname !== "#fbanalysis_boxchart") {
         $("#fbanalysis_boxchart").removeClass("btn-primary");
         $("#fbanalysis_boxchart").addClass("btn-outline-primary");
     }
-    if ("#fbanalysis_barchart" !== tname) {
+    if (tname !== "#fbanalysis_barchart") {
         $("#fbanalysis_barchart").removeClass("btn-primary");
         $("#fbanalysis_barchart").addClass("btn-outline-primary");
     }
-    if ("#fbanalysis_bubblechart" !== tname) {
+    if (tname !== "#fbanalysis_bubblechart") {
         $("#fbanalysis_bubblechart").removeClass("btn-primary");
         $("#fbanalysis_bubblechart").addClass("btn-outline-primary");
     }
@@ -643,7 +643,7 @@ function checkFeedbackAnalysis() {
     // console.log(secondLevelPath);
     //check analysis.php page is true
 
-    if ("feedback" === moduleName && "analysis.php" === functionName) {
+    if (moduleName === "feedback" && functionName === "analysis.php") {
         extendUI();
         // toggleBarChart();
     }
