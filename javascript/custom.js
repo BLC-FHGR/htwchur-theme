@@ -15,6 +15,7 @@ $.urlParam = function (name) {
     return results[1] || 0;
 };
 
+
 function initSVGRoot() {
     // create or clear the SVG area
     if (!svgRoot) {
@@ -650,13 +651,3 @@ function checkFeedbackAnalysis() {
 }
 
 $(document).ready(checkFeedbackAnalysis);
-$(document).ready(function () {
-    $("[data-ic-class=\"toggle-button-box\"]").click(function () {
-        var selectedTab = $(this).index();
-
-        $("[data-ic-class=\"toggle-button-box\"]").removeClass("active-box");
-        $(this).addClass("active-box");
-        $("[data-ic-class=\"content-box\"]").removeClass("active-box");
-        $("[data-ic-class=\"content-box\"]").eq(selectedTab).addClass("active-box");
-    });
-});
