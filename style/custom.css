@@ -420,7 +420,7 @@ div.bar {
 
 /* blc_handbuch*/
 
-.navbar, .toggle-box-box {
+.navbar.toggle-box-box {
   margin: 4px;
   background-color: rgba(202, 176, 124, 0.1);
   padding: 4px;
