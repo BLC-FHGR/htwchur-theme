@@ -784,7 +784,7 @@ div.bar {
   margin: 0.25in 0.22in 0.25in 0.22in;
 }
 @media print {
-  .analysis, tbody {
+  .analysis, tbody, .chart-area {
     page-break-inside: avoid !important;
     width: 100%;
   }
