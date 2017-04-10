@@ -794,7 +794,7 @@ div.bar {
     print-color-adjust: exact;
   }
   /* HTW Print Styles */
-  aside #block-region-side-post, #dock, #page-navbar, #block-region-side-pre, #inst4, .navbar .navbar-inner, .logo, .nav-tabs a, aside#block-region-side-post {
+  aside #block-region-side-post, #dock, #page-navbar, #block-region-side-pre, #inst4, .navbar .navbar-inner, .logo, .nav-tabs a, aside#block-region-side-post, .fbbuttons{
     display: none !important;
     width: 0px!important;
     -moz-appearance: none;
