@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The one column layout.
+ * The secure layout.
  *
  * @package   theme_htwchur
  * @copyright 2013 Moodle, moodle.org
@@ -24,16 +24,24 @@
 
 // Get the HTML for the settings bits.
 $html = theme_htwchur_get_html_for_settings($OUTPUT, $PAGE);
-$PAGE->requires->js_amd_inline("
-    require(['theme_htwchur/feedback'], function() {
-    });
-    ");
+
+// Set default (LTR) layout mark-up for a three column page.
+$regionmainbox = 'span9';
+$regionmain = 'span8 pull-right';
+$sidepre = 'span4 desktop-first-column';
+$sidepost = 'span3 pull-right';
+// Reset layout mark-up for RTL languages.
+if (right_to_left()) {
+    $regionmainbox = 'span9 pull-right';
+    $regionmain = 'span8';
+    $sidepre = 'span4 pull-right';
+    $sidepost = 'span3 desktop-first-column';
+}
 
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
 <head>
     <title><?php echo $OUTPUT->page_title(); ?></title>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
     <link rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>" />
     <?php echo $OUTPUT->standard_head_html() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,22 +51,21 @@ echo $OUTPUT->doctype() ?>
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
-<header role="banner" class="navbar navbar-fixed-top<?php echo $html->navbarclass ?> moodle-has-zindex">
+<header role="banner" class="navbar navbar-fixed-top moodle-has-zindex">
     <nav role="navigation" class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand htwfont" href="<?php echo $CFG->wwwroot;?>"><?php echo
+            <span class="brand htwfont"><?php echo
                 format_string($SITE->shortname, true, array('context' => context_course::instance(SITEID)));
-                ?></a>
+                ?></span>
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <?php echo $OUTPUT->user_menu(); ?>
             <div class="nav-collapse collapse">
-                <?php echo $OUTPUT->custom_menu(); ?>
                 <ul class="nav pull-right">
                     <li><?php echo $OUTPUT->page_heading_menu(); ?></li>
+                    <li class="navbar-text"><?php echo $OUTPUT->login_info(false) ?></li>
                 </ul>
             </div>
         </div>
@@ -67,39 +74,24 @@ echo $OUTPUT->doctype() ?>
 
 <div id="page" class="container-fluid">
 
-    <?php echo $OUTPUT->full_header(); ?>
+    <header id="page-header" class="clearfix">
+        <?php echo $html->heading; ?>
+    </header>
 
     <div id="page-content" class="row-fluid">
-        <section id="region-main" class="span9 offset3">
-            <?php
-            echo $OUTPUT->course_content_header();
-            echo $OUTPUT->main_content();
-            echo $OUTPUT->course_content_footer();
-            ?>
-        </section>
+        <div id="region-main-box" class="<?php echo $regionmainbox; ?>">
+            <div class="row-fluid">
+                <section id="region-main" class="<?php echo $regionmain; ?>">
+                    <?php echo $OUTPUT->main_content(); ?>
+                </section>
+                <?php echo $OUTPUT->blocks('side-pre', $sidepre); ?>
+            </div>
+        </div>
+        <?php echo $OUTPUT->blocks('side-post', $sidepost); ?>
     </div>
 
-    <footer id="page-footer">
-        <div id="course-footer"><?php echo $OUTPUT->course_footer(); ?></div>
-        <?php
-        echo $html->footnote;
-        echo $OUTPUT->standard_footer_html();
-        ?>
-    </footer>
-
-    <script type="application/javascript">
-        $("nav .nav-collapse .pull-right").after($(".breadcrumb-button"));
-
-        $(".feedback_info:first").before('<button class="pull-right" onclick="printPage()">Drucken</button></br>');
-        function printPage() {
-            window.print();
-        };
-    </script>
-    
     <?php echo $OUTPUT->standard_end_of_body_html() ?>
 
-    
-    
 </div>
 </body>
 </html>

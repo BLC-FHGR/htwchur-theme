@@ -24,10 +24,7 @@
 
 // Get the HTML for the settings bits.
 $html = theme_htwchur_get_html_for_settings($OUTPUT, $PAGE);
-$PAGE->requires->js_amd_inline("
-    require(['theme_htwchur/feedback'], function() {
-    });
-    ");
+
 
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>

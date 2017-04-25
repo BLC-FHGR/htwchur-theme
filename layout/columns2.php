@@ -24,6 +24,11 @@
 
 // Get the HTML for the settings bits.
 $html = theme_htwchur_get_html_for_settings($OUTPUT, $PAGE);
+$PAGE->requires->js_amd_inline("
+    require(['theme_htwchur/feedback'], function() {
+    });
+    ");
+
 
 // Set default (LTR) layout mark-up for a two column page (side-pre-only).
 $regionmain = 'span9 pull-right';

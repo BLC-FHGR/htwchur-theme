@@ -15,7 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The one column layout.
+ * Moodle's htwchur theme, an example of how to make a Bootstrap theme
+ *
+ * DO NOT MODIFY THIS THEME!
+ * COPY IT FIRST, THEN RENAME THE COPY AND MODIFY IT INSTEAD.
+ *
+ * For full information about creating Moodle themes, see:
+ * http://docs.moodle.org/dev/Themes_2.0
  *
  * @package   theme_htwchur
  * @copyright 2013 Moodle, moodle.org
@@ -24,18 +30,27 @@
 
 // Get the HTML for the settings bits.
 $html = theme_htwchur_get_html_for_settings($OUTPUT, $PAGE);
-$PAGE->requires->js_amd_inline("
-    require(['theme_htwchur/feedback'], function() {
-    });
-    ");
+
+// Set default (LTR) layout mark-up for a three column page.
+$regionmainbox = 'span9';
+$regionmain = 'span8 pull-right';
+$sidepre = 'span4 desktop-first-column';
+$sidepost = 'span3 pull-right';
+// Reset layout mark-up for RTL languages.
+if (right_to_left()) {
+    $regionmainbox = 'span9 pull-right';
+    $regionmain = 'span8';
+    $sidepre = 'span4 pull-right';
+    $sidepost = 'span3 desktop-first-column';
+}
 
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
 <head>
     <title><?php echo $OUTPUT->page_title(); ?></title>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
     <link rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>" />
     <?php echo $OUTPUT->standard_head_html() ?>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -66,17 +81,21 @@ echo $OUTPUT->doctype() ?>
 </header>
 
 <div id="page" class="container-fluid">
-
     <?php echo $OUTPUT->full_header(); ?>
-
     <div id="page-content" class="row-fluid">
-        <section id="region-main" class="span9 offset3">
-            <?php
-            echo $OUTPUT->course_content_header();
-            echo $OUTPUT->main_content();
-            echo $OUTPUT->course_content_footer();
-            ?>
-        </section>
+        <div id="region-main-box" class="<?php echo $regionmainbox; ?>">
+            <div class="row-fluid">
+                <section id="region-main" class="<?php echo $regionmain; ?>">
+                    <?php
+                    echo $OUTPUT->course_content_header();
+                    echo $OUTPUT->main_content();
+                    echo $OUTPUT->course_content_footer();
+                    ?>
+                </section>
+                <?php echo $OUTPUT->blocks('side-pre', $sidepre); ?>
+            </div>
+        </div>
+        <?php echo $OUTPUT->blocks('side-post', $sidepost); ?>
     </div>
 
     <footer id="page-footer">
@@ -86,20 +105,19 @@ echo $OUTPUT->doctype() ?>
         echo $OUTPUT->standard_footer_html();
         ?>
     </footer>
-
     <script type="application/javascript">
         $("nav .nav-collapse .pull-right").after($(".breadcrumb-button"));
-
-        $(".feedback_info:first").before('<button class="pull-right" onclick="printPage()">Drucken</button></br>');
+        /* super print button */
+        $(".feedback_info:first").before('<button class="pull-right superprintbutton" onclick="printPage()">Drucken</button></br>');
         function printPage() {
             window.print();
         };
+
+ 
+
     </script>
-    
     <?php echo $OUTPUT->standard_end_of_body_html() ?>
 
-    
-    
 </div>
 </body>
 </html>

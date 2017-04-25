@@ -1,0 +1,837 @@
+/**
+ * HTW Chur CD
+ */
+
+
+/**
+ * Colors
+ */
+
+
+/**
+ * Basic Layout Parameter
+ */
+
+
+/**
+ * Gradients
+ */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro');
+.navbar-inverse .navbar-inner {
+  background: #00194d;
+}
+/**
+ ** basic tags
+ **/
+
+h1, h2, h3, a {
+  color: #003399;
+}
+#page-header .logo {
+  display: inline-block;
+  vertical-align: top;
+  height: 110px;
+  margin-left: 10px;
+  margin-right: 20px;
+  background-position: left 20px;
+  background-repeat: no-repeat;
+}
+.dir-rtl .logo {
+  background-position: right 20px;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+.page-context-header {
+  display: inline-block;
+}
+
+/**
+ * Navbar hacks
+ */
+
+.navbar .brand {
+  font-family: Rockwell, Arial, sans-serif;
+}
+#page-site-index #page-navbar {
+  display: inline-block;
+  vertical-align: top;
+  float: right;
+}
+
+/**
+ * AAI Hacks
+ */
+
+#user_idp_iddwrap {
+  float: left;
+  vertical-align: middle;
+}
+#user_idp_iddtext {
+  box-sizing: border-box;
+  background-position: left center !important;
+}
+#user_idp_iddicon {
+  vertical-align: top !important;
+}
+#user_idp_iddwrap+input {
+  clear: both;
+}
+
+/**
+ * round user images
+ */
+
+.block_online_users .userpicture {
+  border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px;
+}
+.page-header-image .userpicture {
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+}
+.navbar .userpicture {
+  border-top-left-radius: 35px;
+  border-top-right-radius: 35px;
+  border-bottom-right-radius: 35px;
+}
+
+/**
+ * Bootstrap 3 components hacks
+ */
+
+
+/* Jumbotron: Nice and BIG information */
+
+.jumbotron {
+  border-radius: 8px;
+  padding: 30px 15px;
+  margin-bottom: 30px;
+  line-height: normal;
+  color: #000000;
+  background-color: #f2f2f2;
+}
+.jumbotron h1, .jumbotron .h1 {
+  color: #000000;
+}
+.jumbotron p {
+  margin-bottom: 15px;
+  font-size: 21px;
+  font-weight: 200;
+}
+.jumbotron>hr {
+  border-top-color: #cccccc;
+}
+
+/**
+ * block backgrounds
+ */
+
+.block, .coursebox {
+  box-shadow: none;
+  border: none;
+  border-radius: 2px;
+  background-color: #f2f2f2;
+}
+#block-region-content .block {
+  background-color: #ffffff;
+}
+.block .header h1, .block .header h2 {
+  color: darkent(#cccccc, 30%);
+}
+#loginauthsection {
+  min-height: 50vh;
+}
+#loginauthsection .span6:last-child {
+  border-left: 2px solid #cccccc;
+}
+#page-footer {
+  border-top: none;
+}
+
+/**
+ * Remove the duplicate name. We already have the title banner
+ */
+
+#page-login-index #page-header, #page-site-index #page-header .breadcrumb-nav, #page-course-index-category .page-context-header, #page-site-index .page-context-header {
+  display: none;
+}
+
+/*# sourceMappingURL=htwchur.css.map */
+
+.logo {
+  background-image: url([[setting:logo]]);
+}
+.dir-rtl div.logo {
+  background-image: url([[setting:logo]]);
+}
+.no-overflow {
+  overflow: hidden;
+}
+
+/* colored inverse navbar */
+
+.navbar-inverse .navbar-inner {
+  background: #12296F;
+}
+.navbar-inverse .brand, .navbar-inverse .nav>li>a, .navbar-inverse .usertext {
+  color: #fff!important;
+}
+
+/* ***************** */
+
+
+/* NEW BUTTON STYLES */
+
+.breadcrumb {
+  border-radius: 2px;
+}
+button, input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], input[name="searchwikicontent"]+input[type="submit"], select+input[type="submit"], input[type="text"]+input[type="button"], input[type="password"]+input[type="submit"], input[type="text"]+button, input[type="text"]+input[type="submit"], select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  margin-bottom: 0!important;
+  margin-top: 2px;
+}
+button, input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link, input.form-submit, input#id_submitbutton, input#id_submitbutton2, .path-admin .buttons input[type="submit"], td.submit input, #notice .singlebutton+.singlebutton input, .submit.buttons input[name="cancel"], button:first-child, input.form-submit:first-child, input[type="button"]:first-child, input[type="submit"]:first-child, input[type="reset"]:first-child, ical-link:first-child {
+  display: inline-block;
+  padding: 4px 12px;
+  /* margin: 0;
+    margin-top: 0px;*/
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #fff;
+  text-shadow: none;
+  background-color: #223E92;
+  background-image: none;
+  filter: none;
+  border-color: none;
+  border: 0px solid;
+  border-bottom-color: none;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  -webkit-transition: all 120ms ease-in-out;
+  -moz-transition: all 120ms ease-in-out;
+  -ms-transition: all 120ms ease-in-out;
+  -o-transition: all 120ms ease-in-out;
+  transition: all 120ms ease-in-out;
+}
+button:first-child:hover, button:first-child:active, button:first-child:focus, button:first-child:visited {
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
+  background-color: #12296F;
+  background-image: none;
+}
+div.editor_atto_toolbar div.atto_group button:first-child:hover, div.editor_atto_toolbar div.atto_group button:first-child:active, div.editor_atto_toolbar div.atto_group button:first-child:focus, div.editor_atto_toolbar div.atto_group button:first-child:visited {
+  display: inline-block;
+  background-image: radial-gradient(ellipse at center, #ffffff 60%, #dfdfdf 100%);
+  background-color: #ebebeb;
+}
+.moodle-dialogue-hd button:first-child:hover, .moodle-dialogue-hd button:first-child:active, .moodle-dialogue-hd button:first-child:focus, .moodle-dialogue-hd button:first-child:visited {
+  display: inline-block;
+  background-image: url(/moodle/theme/image.php?theme=htwchur&component=theme&image=sprite);
+  background-color: #ddd;
+}
+button:hover, input.form-submit:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input.form-submit:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, .ical-link:hover, input.form-submit:hover, input#id_submitbutton:hover, input#id_submitbutton2:hover, .path-admin .buttons input[type="submit"]:hover, td.submit input:hover, #notice .singlebutton+.singlebutton input:hover, .submit.buttons input[name="cancel"]:hover, input.form-submit:first-child:hover, input[type="button"]:first-child:hover, input[type="submit"]:first-child:hover, input[type="reset"]:first-child:hover, ical-link:first-child {
+  display: inline-block;
+  padding: 4px 12px;
+  /* margin: 0;
+    margin-top: 0px;*/
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
+  background-color: #12296F;
+  background-image: none;
+  filter: none;
+  border-color: none;
+  border: 0px solid;
+  border-bottom-color: none;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+/*input[name="searchwikicontent"]+input[type="submit"]:hover, select+input[type="submit"]:hover, input[type="text"]+input[type="button"]:hover, input[type="password"]+input[type="submit"]:hover, input[type="text"]+button:hover, input[type="text"]+input[type="submit"]:hover, input[name="searchwikicontent"]+input[type="submit"]:active, select+input[type="submit"]:active, input[type="text"]+input[type="button"]:active, input[type="password"]+input[type="submit"]:active, input[type="text"]+button:active, input[type="text"]+input[type="submit"]:active, input[name="searchwikicontent"]+input[type="submit"]:focus, select+input[type="submit"]:focus, input[type="text"]+input[type="button"]:focus, input[type="password"]+input[type="submit"]:focus, input[type="text"]+button:focus, input[type="text"]+input[type="submit"]:focus, input[name="searchwikicontent"]+input[type="submit"]:visited, select+input[type="submit"]:visited, input[type="text"]+input[type="button"]:visited, input[type="password"]+input[type="submit"]:visited, input[type="text"]+button:visited, input[type="text"]+input[type="submit"]:visited{
+    margin: 0 0 10px 5px;
+}*/
+
+.ical-link:before {
+  content: "\0021E9";
+  text-decoration: underline;
+  font-size: 22px;
+  font-weight: lighter;
+  font-family: FontAwesome;
+  margin-right: 10px;
+}
+
+/* iCal Language specifications */
+
+.ical-link:lang(de):after {
+  content: ': Kalender importieren'
+}
+.ical-link:lang(en):after {
+  content: ': Import calendar'
+}
+.ical-link:lang(fr):after {
+  content: ': importer calendrier'
+}
+.ical-link:lang(it):after {
+  content: ': importare calendario'
+}
+
+/* Cleanup: header region with breadcrumb, buttongroup and welcome messages */
+
+.page-header-image img {
+  width: 54%;
+  height: auto;
+}
+.page-context-header {
+  background: #F5F5F5;
+  padding: 8px 0px 0px 0px;
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+header#page-header {
+  margin-bottom: 10px;
+  border-bottom: 1px solid#fafafa;
+}
+.dir-ltr .page-context-header .page-header-image {
+  padding-left: 16px;
+}
+.page-context-header .page-header-headings {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.page-context-header .page-header-headings h1 {
+  padding-left: 26px;
+  font-size: 1.8em;
+}
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  margin-bottom: 10px;
+}
+.sectionname span {
+  font-size: .8em;
+  white-space: normal;
+}
+.breadcrumb-button input.form-submit, .breadcrumb-button input[type="button"], .breadcrumb-button input[type="submit"], .breadcrumb-button input[type="reset"], .breadcrumb-button input.form-submit, .breadcrumb-button input#id_submitbutton, .breadcrumb-button input#id_submitbutton2, .breadcrumb-button.path-admin .buttons input[type="submit"], .breadcrumb-button td.submit input {
+  /*    margin: 2px 10px 0 0;*/
+  color: #fff;
+  background-color: #F44336;
+  text-decoration: none;
+  text-shadow: none;
+}
+.breadcrumb-button input.form-submit, .breadcrumb-button input[type="button"]:hover, .breadcrumb-button input[type="submit"]:hover, .breadcrumb-button input[type="reset"]:hover, .breadcrumb-button input.form-submit:hover, .breadcrumb-button input#id_submitbutton:hover, .breadcrumb-button input#id_submitbutton2:hover, .breadcrumb-button.path-admin .buttons input[type="submit"]:hover, .breadcrumb-button td.submit input:hover {
+  /*margin: 2px 10px 0 0;*/
+  color: #fff;
+  background-color: #E53935;
+  text-decoration: none;
+  text-shadow: none;
+}
+.jsenabled .navbar-inverse .usermenu .moodle-actionmenu.show, .navbar-inverse .nav li.dropdown.open>.dropdown-toggle, .navbar-inverse .nav li.dropdown.active>.dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active>.dropdown-toggle {
+  color: #fff;
+  background-color: #121953;
+}
+
+/* fix main region start page was too large */
+
+.content-only #region-main-box, .content-only #region-main {
+  width: auto;
+}
+.content-only #region-main.span9, .empty-region-side-post #region-bs-main-and-pre.span9, .empty-region-side-pre #region-bs-main-and-post.span9, .empty-region-side-post #region-bs-main-and-post.span9 #region-main.span8, .jsenabled.docked-region-side-post #region-bs-main-and-pre.span9, .jsenabled.docked-region-side-post #region-bs-main-and-post.span9 #region-main.span8, .jsenabled.docked-region-side-pre #region-bs-main-and-post.span9 {
+  width: auto;
+}
+
+/******** fix: jumping breadcrumb region ******/
+
+#page-navbar .breadcrumb-button input[type="submit"] {
+  display: none!important;
+  visibility: hidden;
+}
+
+/* ******* padding in requirements ****** */
+
+#fitem_id_availabilityconditionsjson .availability-plugincontrols {
+  padding: 10px 0 10px 4px;
+}
+.availability-header {
+  margin-bottom: 10px;
+}
+#fitem_id_availabilityconditionsjson select, #fitem_id_availabilityconditionsjson input[type=text] {
+  top: 0px;
+}
+
+/* ******** margin added to course search box ********* */
+
+#coursesearch {
+  margin-bottom: 10px;
+}
+th {
+  white-space: normal;
+}
+
+/*barchart_test*/
+
+#feedback_analysis {
+  padding: 15px;
+  box-sizing: content-box;
+}
+div.bar {
+  display: inline-block;
+  width: 20px;
+  height: 75px;
+  /* Gets overriden by D3-assigned height below */
+  margin: 20px 4px;
+  background-color: #4b92a4;
+}
+.bar {
+  fill: #4B92A4;
+}
+.bar:hover {
+  fill: #C76D6D;
+}
+.axis {
+  font: 8px "Roboto" sans-serif;
+  color: #333;
+}
+.tick {
+  color: #bbb;
+}
+.axis path, .axis line {
+  fill: none;
+  stroke: #bbb;
+  shape-rendering: crispEdges;
+}
+.axis text {
+  fill: #333;
+  margin: 2px;
+}
+
+/* blc_handbuch*/
+
+.navbar.toggle-box-box {
+  margin: 4px;
+  background-color: rgba(202, 176, 124, 0.1);
+  padding: 4px;
+  border-radius: 3px;
+  box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.15);
+}
+.toggle-container-box {
+  width: 100%;
+  margin: 0px auto;
+}
+.toggle-container-box:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.toggle-container-box .nav-item {
+  transition: all 0.2s ease;
+  display: block;
+  cursor: pointer;
+  float: left;
+  width: 33.3%;
+  color: rgba(75, 146, 164, 0.5);
+  font-size: 14px;
+  font-weight: 600;
+  background: transparent;
+  border-top: 6px solid rgba(75, 146, 164, 0.5);
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  outline: none;
+  text-align: center;
+  margin-bottom: 4px;
+}
+.toggle-container-box .nav-item.active {
+  color: rgba(75, 146, 164, 1);
+  border-top: 6px solid rgba(75, 146, 164, 1);
+}
+.toggle-container-box .nav-item:hover {
+  color: rgba(75, 146, 164, 1);
+}
+.tab-content {
+  width: 100%;
+  text-align: justify;
+  line-height: 1.2em;
+}
+
+/*.tab-content {
+  display: none;
+}*/
+
+.tab-pane p {
+  padding: 4px;
+}
+.tab-pane.active {
+  display: block;
+}
+.floating-boxes.active {
+  display: inline-flex!important;
+}
+.float-right-box {
+  float: right;
+  background-color: rgba(75, 146, 164, 0.15);
+  padding: 12px;
+  width: 33%;
+  margin: 2px;
+  hyphens: auto;
+  font-size: 12px;
+}
+.float-right-box h5 {
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  font-color: rgb(75, 146, 164);
+}
+.float-right-box h6 {
+  font-weight: 600;
+  font-size: 12px;
+  font-color: rgb(75, 146, 164);
+}
+.float-left-box {
+  float: left;
+  padding: 10px;
+  width:67%;
+}
+
+/*feedback tool fixex*/
+
+#feedback_analysis svg {
+  padding: 30px;
+}
+.chart-area {
+    max-width: 50%;
+    position: inherit;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * M E D I A ** Q U E R I E S* * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+/* * * * * * * * * * *  smartphones, iPhone, portrait 480x320 phones * * * * * * * * * * */
+
+@media (min-width:320px) and (max-device-width:480px) {
+  /* fix: overlapping frame size on mobile / horizontal scroll*/
+  .chart-area {
+    min-width: 100%;
+    position: inherit;
+}
+  #page-header .logo {
+    margin: 0px;
+    margin-right: 0px;
+  }
+  .page-context-header .page-header-headings h1 {
+    font-size: 1.4em;
+    padding: 0 10px;
+  }
+  input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link, input.form-submit:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input.form-submit:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, .ical-link:hover {
+    min-width: 100%;
+    max-width: 280px;
+    padding: 10px 10px;
+  }
+  .singlebutton div {
+    display: block;
+  }
+  .path-calendar .maincalendar .header .buttons {
+    float: none;
+  }
+  .block-region button, .block-region input.form-submit, .block-region input[type="button"], .block-region input[type="submit"], .block-region input[type="reset"] {
+    margin: 0!important;
+    display: block;
+    min-width: 100%;
+  }
+  .block_settings #adminsearchquery {
+    max-width: 100%;
+    min-width: 96%;
+  }
+  .breadcrumb-button .singlebutton {
+    float: none;
+  }
+  .breadcrumb-button {
+    float: none;
+  }
+  /* fix mobile navigation: input field wiki*/
+  select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    width: 100%;
+  }
+  /* fix wrong navbar inverse color*/
+  .navbar-inverse .nav-collapse .nav>li>a:hover, .navbar-inverse .nav-collapse .nav>li>a:focus, .navbar-inverse .nav-collapse .dropdown-menu a:hover, .navbar-inverse .nav-collapse .dropdown-menu a:focus {
+    background-color: #121953;
+  }
+  /* block tap fixes*/
+  .block_settings .block_tree .tree_item, .block_navigation .block_tree .tree_item {
+    margin: 10px 0;
+  }
+  /* fix: mobile: editor width */
+  .form-item, .mform .fitem, .form-item, .mform .fitem_ftext input[size] {
+    min-width: 280px;
+    max-width: 380px;
+    width: 90%;
+    position: inherit;
+  }
+  .editor_atto_content_wrap {
+    white-space: inherit;
+  }
+  .editor_atto_notification .atto_info, .editor_atto_notification .atto_warning {
+    border-radius: 4px;
+    background-color: #EDF1FC;
+  }
+  /* fix moodle dialogues to select course element type*/
+  .moodle-dialogue-base .moodle-dialogue {
+    max-width: 100%;
+    position: absolute;
+    height: 100vh;
+    top: 0;
+    bottom: 0!important;
+  }
+  .moodle-dialogue-base .moodle-dialogue-fullscreen .moodle-dialogue-content {
+    bottom: 0px!important;
+  }
+  /* fix fieldset */
+  #page-enrol-users #filterform .fitem {
+    white-space: normal;
+  }
+  #page-enrol-users #filterform div, #page-enrol-users #filterform fieldset {
+    white-space: normal;
+  }
+  #page-enrol-users #filterform, #page-enrol-users #filterform div, #page-enrol-users #filterform fieldset {
+    max-width: 97%;
+  }
+  #page-enrol-users .enrol_user_buttons, #page-enrol-users .enrol_user_buttons .enrolusersbutton {
+    float: none;
+  }
+  #page-enrol-users #filterform {
+    display: block;
+  }
+  #page-enrol-users #filterform select, #page-enrol-users #filterform .ftext input {
+    width: inherit;
+  }
+  /* block tap fixes: height!!*/
+  .block_settings .block_tree .tree_item, .block_navigation .block_tree .tree_item {
+    margin: 10px 0;
+  }
+  #page-enrol-users #filterform, #page-enrol-users #filterform div, #page-enrol-users #filterform fieldset {
+    display: -webkit-box;
+  }
+  input.form-submit, input#id_submitbutton, input#id_submitbutton2, .path-admin .buttons input[type="submit"], td.submit input {
+    padding: 10px;
+  }
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide.*/
+
+@media (min-width:481px)and (max-device-width:640px) {
+  /* fix: overlapping frame size on mobile / horizontal scroll*/
+  #page-header .logo {
+    margin: 0px;
+  }
+    .chart-area {
+    min-width: 100%;
+    position: inherit;
+}
+  input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link, input.form-submit:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input.form-submit:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, .ical-link:hover {
+    min-width: 100%;
+    max-width: 600px;
+    padding: 10px 0;
+  }
+  .singlebutton div {
+    display: block;
+  }
+  .block-region button, .block-region input.form-submit, .block-region input[type="button"], .block-region input[type="submit"], .block-region input[type="reset"] {
+    margin: 0!important;
+    display: block;
+    min-width: 100%;
+  }
+  .block_settings #adminsearchquery {
+    max-width: 100%;
+    min-width: 96%;
+  }
+  #page-header .logo {
+    margin-right: 10px;
+  }
+  .breadcrumb-button {
+    float: none;
+  }
+  /* tablet menu fix floats and frame width*/
+  .nav-collapse .nav>li {
+    float: left;
+    margin-top: 6px;
+  }
+  .breadcrumb-button .singlebutton {
+    float: right;
+    width: auto;
+    max-width: 95%;
+  }
+  .breadcrumb-button {
+    float: right;
+  }
+  /* fix mobile navigation: input field wiki*/
+  select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    width: 100%;
+  }
+  /* fix wrong navbar inverse color*/
+  .navbar-inverse .nav-collapse .nav>li>a:hover, .navbar-inverse .nav-collapse .nav>li>a:focus, .navbar-inverse .nav-collapse .dropdown-menu a:hover, .navbar-inverse .nav-collapse .dropdown-menu a:focus {
+    background-color: #121953;
+  }
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+
+@media (min-width:641px) and (max-device-width: 960px) {
+  /* fix: overlapping frame size on mobile / horizontal scroll*/
+  #page-header .logo {
+    margin: 0px;
+    margin-right: 0px;
+  }
+  input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link, input.form-submit:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input.form-submit:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, .ical-link:hover {
+    min-width: 100%;
+    max-width: 920px;
+    padding: 10px 0;
+  }
+  .singlebutton div {
+    display: block;
+  }
+  .block-region button, .block-region input.form-submit, .block-region input[type="button"], .block-region input[type="submit"], .block-region input[type="reset"] {
+    margin: 0!important;
+    display: block;
+    min-width: 100%;
+  }
+  .block_settings #adminsearchquery {
+    max-width: 100%;
+    min-width: 96%;
+  }
+  #page-header .logo {
+    margin-right: 10px;
+  }
+  /* tablet menu fix floats and frame width*/
+  .nav-collapse .nav>li {
+    float: left;
+    margin-top: 6px;
+  }
+  .breadcrumb-button .singlebutton {
+    float: right;
+    width: auto;
+    max-width: 95%;
+  }
+  .breadcrumb-button {
+    float: right;
+  }
+  /* fix wrong navbar inverse color*/
+  .navbar-inverse .nav-collapse .nav>li>a:hover, .navbar-inverse .nav-collapse .nav>li>a:focus, .navbar-inverse .nav-collapse .dropdown-menu a:hover, .navbar-inverse .nav-collapse .dropdown-menu a:focus {
+    background-color: #121953;
+  }
+  /* block tap fixes*/
+  .block_settings .block_tree .tree_item, .block_navigation .block_tree .tree_item {
+    margin: 10px 0;
+  }
+}
+
+/* tablet, landscape iPad, lo-res laptops ands desktops */
+
+@media (min-width:961px) {
+  /* fix: overlapping frame size on mobile / horizontal scroll*/
+  #page-header .logo {
+    margin: 0px;
+    margin-right: 0px;
+  }
+}
+
+/* big landscape tablets, laptops, and desktops */
+
+@media (min-width:1025px) {
+  input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link {
+    width: auto;
+  }
+}
+
+/* hi-res laptops and desktops */
+
+@media (min-width:1281px) {
+  input.form-submit, input[type="button"], input[type="submit"], input[type="reset"], .ical-link {
+    width: auto;
+  }
+}
+
+/* little layout fix for mobile / tablet */
+
+@media (max-width: 979px) and (min-width: 768px) {
+  .row-fluid .offset3:first-child {
+    margin-left: 0%;
+  }
+}
+@page {
+  size: 7.267in 11.692in;
+  margin: 0.25in 0.22in 0.25in 0.22in;
+}
+@media print {
+  .analysis, tbody, .chart-area {
+    page-break-inside: avoid !important;
+    width: 100%;
+  }
+  body {
+    font-family: 'Roboto', Helvetica, sans-serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  /* HTW Print Styles */
+  aside #block-region-side-post, #dock, #page-navbar, #block-region-side-pre, #inst4, .navbar .navbar-inner, .logo, .nav-tabs a, aside#block-region-side-post, .fbbuttons{
+    display: none !important;
+    width: 0px!important;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+  }
+  #region-main, .page-context-header, .page-header-headings {
+    left: 0!important;
+    float: left!important;
+    width: 100% !important;
+  }
+  .page-context-header, .page-header-headings {
+    margin-left: -16px;
+  }
+  .analysis th {
+    white-space: normal !important;
+  }
+  #page-header:before {
+    margin-top: 20px;
+    font-family: 'Roboto', Helvetica, sans-serif;
+    font-size: 16px;
+    content: 'HTW Chur | Hochschule für Technik und Wirtschaft';
+    max-height: 10px;
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+  }
+  #pageheader {
+    display: none !important;
+    height: 0 !important;
+  }
+  #region-main, .page-header-headings, .page-context-header, {
+    float: left!important;
+    left: 0 !important;
+    padding: 0px 30px 0px 30px;
+  }
+}
+
+/* Custom CSS Settings
+-------------------------*/
+
+[[setting:customcss]]
