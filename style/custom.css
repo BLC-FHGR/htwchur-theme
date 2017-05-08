@@ -516,6 +516,13 @@ div.bar {
     position: inherit;
 }
 
+.navbar .nav>.active>a, .navbar .nav>.active>a:hover, .navbar .nav>.active>a:focus {
+   color: rgba(75,146,164,1);
+   background-color: none!important;
+   webkit box box-shadow:;
+   box-shadow: none;
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /* * * * * * * * M E D I A ** Q U E R I E S* * * * * * * */
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
