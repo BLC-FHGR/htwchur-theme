@@ -1,4 +1,3 @@
-
 /* How to copy and customise this theme.
 ----------------------------------------*/
 
@@ -6,6 +5,15 @@ This document describes how to copy and customise the htwchur (bootstrapbase) th
 you can build on this to create a theme of your own. It assumes you have some
 understanding of how themes work within Moodle 2.5, as well as a basic understanding
 of HTML and CSS.
+
+Export as moodle plugin
+------------------------
+
+In order to export this theme directly from its GIT repository, use the following
+command on the command line:
+
+git archive --format=zip -o theme_htwchur.zip --prefix=theme_htwchur/ master
+
 
 Getting started
 ---------------
