@@ -461,6 +461,18 @@ div.bar {
 .toggle-container-box .nav-item:hover {
   color: rgba(75, 146, 164, 1);
 }
+.navbar .nav > li > a {
+    padding: 0;
+    background-color: none;
+}
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+    color: rgba(75,146,164,1);
+     background-color: none;
+     background-color: none;
+     -webkit-box-shadow: none;
+     box-shadow: none;
+}
+
 .tab-content {
   width: 100%;
   text-align: justify;
@@ -516,12 +528,6 @@ div.bar {
     position: inherit;
 }
 
-.navbar .nav>.active>a, .navbar .nav>.active>a:hover, .navbar .nav>.active>a:focus {
-   color: rgba(75,146,164,1);
-   background-color: none!important;
-   webkit box box-shadow:;
-   box-shadow: none;
-}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /* * * * * * * * M E D I A ** Q U E R I E S* * * * * * * */
