@@ -24,13 +24,13 @@
  * http://docs.moodle.org/dev/Themes_2.0
  *
  * @package    theme_htwchur
- * @copyright  2013 Moodle, moodle.org
+ * @copyright  2015-2017 HTW Chur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2017100402	; // FIXME: wir updaten den wert am 5.10.2017!
+$plugin->version   = 2017100403	; // FIXME: wir updaten den wert am 5.10.2017!
 $plugin->requires  = 2015050500;
 $plugin->component = 'theme_htwchur';
 $plugin->dependencies = array(
