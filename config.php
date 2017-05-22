@@ -49,7 +49,7 @@ $THEME->csspostprocess = 'theme_htwchur_process_css';
 
 $THEME->layouts = array(
     'frontpage' => array(
-        'file' => 'columns1.php',
+        'file' => 'columns2.php',
         'regions' => array(),
         'options' => array('langmenu' => true, 'nofooter' => true)
     ),
