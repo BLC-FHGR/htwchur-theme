@@ -50,7 +50,7 @@ if ($ADMIN->fulltree) {
 
     // Custom CSS file.
     $name = 'theme_htwchur/customcss';
-    $title = get_string('customcss', 'theme_htwchur', 'font-awesome', 'font-awesome.min');
+    $title = get_string('customcss', 'theme_htwchur'); // , 'font-awesome', 'font-awesome.min');
     $description = get_string('customcssdesc', 'theme_htwchur');
     $default = '';
     $setting = new admin_setting_configtextarea($name, $title, $description, $default);
